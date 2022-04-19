@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 1
   updateInPlayMode: 1
-  drawActivationToggle: 1
+  drawActivationToggle: 0
   icons:
     enabled: 1
     aligned: 0
