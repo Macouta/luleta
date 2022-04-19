@@ -26,13 +26,13 @@ MonoBehaviour:
       color: {r: 0, g: 0, b: 0, a: 0}
   alternatingBackground:
     enabled: 1
-    color: {r: 0, g: 0, b: 0, a: 0.11372549}
+    color: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 0.11372549}
   separator:
-    enabled: 1
+    enabled: 0
     startString: =
     color: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
   tree:
-    enabled: 1
+    enabled: 0
     drawOverlayOnColoredPrefabs: 1
     dividerHeigth: 0
     baseLevelColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
