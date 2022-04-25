@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Linq;
 
 
@@ -29,19 +30,22 @@ public class Astre : MonoBehaviour
     public float scale;
     public Vector3 offset;
     public Color col_A, col_B, col_C, col_D;
+    public Sprite sprite_tellurique, sprite_gazeuse, sprite_satellite, sprite_comete, sprite_etoile;
+
+    // gameobject
+    private Image image;
+    private Astre_manager astre_manager;
 
 
     void Start()
     {
-        InitAstre();
-    }
-    void Awake()
-    {
+        astre_manager = GetComponentInParent<Astre_manager>();
         InitAstre();
     }
 
     public void InitAstre()
     {
+        //Donnes
         nom = liste_noms[Random.Range(0, liste_noms.Count)];
         type = astre_data.ElementAt(Random.Range(0, astre_data.Count)).Key;
         periode_rotation = Random.Range(6, astre_data[type][0]); //h
@@ -49,15 +53,49 @@ public class Astre : MonoBehaviour
         diametre = Random.Range(500, astre_data[type][2]); //km
         population = Random.Range(0, astre_data[type][3]); //nb d'habitants ou d'ennemis
         vitesse_rot = 360f / periode_rotation;
+        float offset = 0.1f;
+        this.transform.Translate(new Vector3(Random.Range(-offset, offset), Random.Range(-offset, offset), 0f));
 
         //Mat variables
         scale = Random.Range(0f, 1f);
-        offset = new Vector3(Random.Range(0f, 100f), Random.Range(0f, 100f), Random.Range(0f, 100f));
         Color[] HarmonicColors = Get4HarmonicColors();
         col_A = HarmonicColors[0];
         col_B = HarmonicColors[1];
         col_C = HarmonicColors[2];
         col_D = HarmonicColors[3];
+
+        //Gameobject
+        image = GetComponent<Image>();
+        AppliquerSprite();
+        image.color = Color.white;
+        float go_scale = 1f + diametre * 0.000015f;
+        this.transform.localScale = new Vector3(transform.localScale.x * go_scale,
+                                                transform.localScale.y * go_scale,
+                                                transform.localScale.z * go_scale);
+    }
+
+    private void AppliquerSprite()
+    {
+        if (type == "Planète tellurique") //"Planète tellurique"
+        {
+           image.sprite = sprite_tellurique;
+        }
+        else if (type == "Planète gazeuse") //"Planète gazeuse"
+        {
+            image.sprite = sprite_gazeuse;
+        }
+        else if (type == "Satellite") //"Satellite"
+        {
+            image.sprite = sprite_satellite;
+        }
+        else if (type == "Comète") //"Comète"
+        {
+            image.sprite = sprite_comete;
+        }
+        else if (type == "Étoile") //"Étoile"
+        {
+            image.sprite = sprite_etoile;
+        }
     }
 
     private Color[] Get4HarmonicColors()
@@ -80,6 +118,16 @@ public class Astre : MonoBehaviour
 
         Color[] HarmonicColors = new Color[4] { colA, colB, colC, colD };
         return HarmonicColors;
+    }
+
+    public void Selectionner()
+    {
+        astre_manager.DefinirAstreActuel(this);
+        image.color = col_A;
+    }
+    public void Deselectionner()
+    {
+        image.color = Color.white;
     }
 }
 
