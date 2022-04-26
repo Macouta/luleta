@@ -3,7 +3,27 @@ guid: 960fa6f8a0177a74cb9c0f56f5eb8faa
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mapBox
+    second: {fileID: 2100000, guid: 9923a9eedbc91aa418affe9c15f2ada4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mapBox_button
+    second: {fileID: 2100000, guid: e9999dc6e82c12a4bbf0396d49e43022, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mapBox_tape
+    second: {fileID: 2100000, guid: 50f7f98e5407e2245ae54282ebf34508, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: mapBox_wheel
+    second: {fileID: 2100000, guid: 337852892623c4e459a009d2b9ed5ab1, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
