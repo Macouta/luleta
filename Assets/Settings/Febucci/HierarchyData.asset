@@ -32,7 +32,7 @@ MonoBehaviour:
     startString: =
     color: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
   tree:
-    enabled: 1
+    enabled: 0
     drawOverlayOnColoredPrefabs: 1
     dividerHeigth: 0
     baseLevelColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

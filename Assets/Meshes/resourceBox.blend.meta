@@ -10,8 +10,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: ResourceBox_Button
+    second: {fileID: 2100000, guid: ac62416d5ce1b1841a3eab39af0df4db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: ResourcesBox
-    second: {fileID: 2100000, guid: 245103b824f0c1f4693c59ebe428300c, type: 2}
+    second: {fileID: 2100000, guid: 1736267f9c6e5d045a95f27350a15c14, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

@@ -4,20 +4,37 @@ using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 
+using Sirenix.OdinInspector;
+
 public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager manager;
 
-    public GameObject wheel;
+    public float cooldownTimer = 1f;
+    private float cooldownTimerLeft;
 
-    public GameObject jumpLever;
+    [BoxGroup("OnButton")]
+    public GameObject powerButton;
+
+    [BoxGroup("Wheel")]
+    public GameObject wheel;
+    [BoxGroup("Wheel")]
+    public float wheelRotSpeed = 200f;
+    [BoxGroup("Jump")]
+    public GameObject jumpButton;
+    [BoxGroup("Trade")]
     public GameObject tradeButton;
+
+    [BoxGroup("Invade")]
     public GameObject invadeLever;
+    [BoxGroup("Invade")]
     public Ease invadeLeverEasing;
+    [BoxGroup("Invade")]
     public float invadeLeverAnimTime = 1f;
 
     [Space]
 
+    public UnityEvent onPowerButton;
     public UnityEvent onTrade;
     public UnityEvent onInvade;
     public UnityEvent onJump;
@@ -25,6 +42,17 @@ public class InteractionManager : MonoBehaviour
     // Update is called once per frame
 
     private bool wheelHold = false;
+    private bool clickCooldown = false;
+
+    private CameraRig cameraRig;
+
+    public bool WheelHold { 
+        get => wheelHold; 
+        set {
+            wheelHold = value; 
+            cameraRig.MouseHold = value;
+        }
+    }
 
     void Awake()
      {
@@ -34,44 +62,79 @@ public class InteractionManager : MonoBehaviour
          manager = this;
      }
 
+     void Start() {
+         cameraRig = Camera.main.transform.parent.GetComponent<CameraRig>();
+         cooldownTimerLeft = cooldownTimer;
+     }
+
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) {  
+        if (Input.GetMouseButtonDown(0) && !clickCooldown) {  
             // Debug.Log("click " + Camera.main.name);
             
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition); 
             // Debug.DrawRay(ray.origin, ray.direction * 10, Color.red);
             RaycastHit hit;  
             if (Physics.Raycast(ray, out hit)) {  
+                string name = hit.transform.name;
+                if(hit.transform.tag == "Interactible") {
+                    clickCooldown = true;
+                }
                 // Debug.Log("hit : " + hit.transform.name);
-                if(hit.transform.name == tradeButton.name)
+                if(name == tradeButton.name)
                     onTradeButtonClicked(hit.transform);
-
-                if(hit.transform.name == invadeLever.name) {
+                if(name == invadeLever.name)
                     onInvadeLeverClicked(hit.transform);
-                }
-
-                if(hit.transform.name == wheel.name) {
-                    wheelHold = true;
-                }
+                if(name == jumpButton.name)
+                    onJumpButtonClicked(hit.transform);
+                if(name == powerButton.name)
+                    onPowerButtonClicked(hit.transform);
+                if(name == wheel.name)
+                    WheelHold = true;
             }  
         }
 
         if(Input.GetMouseButtonUp(0)) {
-            wheelHold = false;
+            WheelHold = false;
         }
 
-        // Debug.Log(wheelHold);
+        //Cooldown click
+        if(clickCooldown) {
+            cooldownTimerLeft -= Time.deltaTime;
+            if(cooldownTimerLeft < 0) {
+                clickCooldown = false;
+                cooldownTimerLeft = cooldownTimer;
+            }
+        }
+
+        if(wheelHold) {
+            float mouseX = Input.GetAxis("Mouse X") * wheelRotSpeed * Time.deltaTime;
+            wheel.transform.Rotate(new Vector3(0, mouseX, 0));
+        }
     }
 
     void onTradeButtonClicked(Transform t) {
+        Debug.Log("TRADE");
         onTrade.Invoke();
-        t.DOLocalMoveZ(t.localPosition.z - 0.03f, 0.5f).SetLoops(2, LoopType.Yoyo);
+        t.DOLocalMoveZ(t.localPosition.z - 0.02f, 0.4f).SetLoops(2, LoopType.Yoyo);
     }
 
     void onInvadeLeverClicked(Transform t) {
+        Debug.Log("INVADE");
         t.DORotate(t.eulerAngles - new Vector3(90f, 0, 0), invadeLeverAnimTime).SetEase(invadeLeverEasing).SetLoops(2, LoopType.Yoyo).OnComplete(() => {
             onInvade.Invoke();
         });
+    }
+
+    void onPowerButtonClicked(Transform t) {
+        Debug.Log("POWER ON");
+        onPowerButton.Invoke();
+        t.DOLocalMoveZ(t.localPosition.z - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+    }
+
+    void onJumpButtonClicked(Transform t) {
+        Debug.Log("JUMP");
+        onJump.Invoke();
+        t.DOLocalMoveZ(t.localPosition.y - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
     }
 }
