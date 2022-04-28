@@ -93,6 +93,7 @@ Material:
     - _ZWrite: 1
     - _float1: 5.81
     - _float2: 37.7
+    - _power: 1
     - _scale: 0.91
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
