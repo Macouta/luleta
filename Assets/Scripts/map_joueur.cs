@@ -18,33 +18,25 @@ public class map_joueur : MonoBehaviour
 
     void Update()
     {
+        // Controles
+        //TODO controles pour test seulement
+        if (Input.GetKey(KeyCode.Q))
+            Tourner(1f);
+        if (Input.GetKey(KeyCode.D))
+            Tourner(-1f);
+        if (Input.GetKey(KeyCode.S))
+            AborderAstreActuel();
+        if (Input.GetKeyDown(KeyCode.Z))
+            SauterHyperEspace();
+
         if (!enHyperEspace)
         {
-            // Controles
-            //TODO controles pour test seulement
-            if (Input.GetKey(KeyCode.Q))
-                Tourner(1f);
-            if (Input.GetKey(KeyCode.D))
-                Tourner(-1f);
-            if (Input.GetKey(KeyCode.S))
-            {
-                if(astre_actuel != null)
-                {
-                    astre_actuel.Aborder();
-                }
-            }
-
-
-                // Ray
-                RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up * dist_start, transform.up, dist);
+            // Ray
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + transform.up * dist_start, transform.up, dist);
             if (hit.collider != null)
             {
                 astre_vise = hit.collider.GetComponent<Astre>();
                 hit.collider.GetComponent<Astre>().Selectionner();
-
-                //TODO controles pour test seulement
-                if (Input.GetKeyDown(KeyCode.Z))
-                    SautHyperEspace(astre_vise);
 
                 Debug.DrawRay(transform.position + transform.up * dist_start, transform.up * dist, Color.red);
             }
@@ -54,6 +46,7 @@ public class map_joueur : MonoBehaviour
                 {
                     astre_vise.Deselectionner();
                 }
+                astre_vise = null;
                 Debug.DrawRay(transform.position + transform.up * dist_start, transform.up * dist, Color.yellow);
             }
         }
@@ -61,15 +54,23 @@ public class map_joueur : MonoBehaviour
 
     public void Tourner(float direction)
     {
-        this.transform.Rotate(Vector3.forward, direction * vit_rot * Time.deltaTime);
-
-    }
-
-    private void SautHyperEspace(Astre astre_destination)
-    {
-        if (!astre_destination.inaccessible)
+        if (!enHyperEspace)
         {
-            IEnumerator coroutine = SautHyperEspaceAnimation(astre_destination);
+            this.transform.Rotate(Vector3.forward, direction * vit_rot * Time.deltaTime);
+        }
+    }
+    public void AborderAstreActuel()
+    {
+        if (astre_actuel != null && !enHyperEspace)
+        {
+            astre_actuel.Aborder();
+        }
+    }
+    public void SauterHyperEspace()
+    {
+        if (astre_vise!=null && !astre_vise.inaccessible && !enHyperEspace)
+        {
+            IEnumerator coroutine = SautHyperEspaceAnimation(astre_vise);
             StartCoroutine(coroutine);
         }
     }
