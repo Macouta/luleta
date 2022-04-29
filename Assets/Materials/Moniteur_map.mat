@@ -72,7 +72,7 @@ Material:
     - _CullMode: 2
     - _CullModeForward: 2
     - _DepthOffsetEnable: 0
-    - _DistortionMult: 0.3
+    - _DistortionMult: 0
     - _DistortionVitesse: 1
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0

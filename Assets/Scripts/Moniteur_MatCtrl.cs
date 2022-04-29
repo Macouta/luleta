@@ -11,7 +11,7 @@ public class Moniteur_MatCtrl : MonoBehaviour
     private void Start()
     {
         mat_moniteur.SetFloat("_Close", 50f);
-        StartCoroutine(HandleStart(mainMaterial));
+        // StartCoroutine(HandleStart(mainMaterial));
     }
 
     private IEnumerator HandleStart(Material mat)
@@ -25,9 +25,9 @@ public class Moniteur_MatCtrl : MonoBehaviour
 
     public void startGame()
     {
-        StartCoroutine(HandleStart(infoMaterial));
-        StartCoroutine(HandleStart(interactionMaterial));
-        SceneManager.LoadScene("GameScene");
+        // StartCoroutine(HandleStart(infoMaterial));
+        // StartCoroutine(HandleStart(interactionMaterial));
+        // SceneManager.LoadScene("GameScene");
     }
 
 
