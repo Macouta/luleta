@@ -91,6 +91,7 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
+    - _power: 1
     - _scale: 0.5
     - _tst1: 11.06
     - _tst2: 1.3
