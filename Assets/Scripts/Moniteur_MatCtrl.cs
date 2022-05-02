@@ -10,22 +10,22 @@ public class Moniteur_MatCtrl : MonoBehaviour
 
     private void Update()
     {
-        ////TODO test
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    print("bouton q");
-        //    Allumer();
-        //}
-        //if (Input.GetKeyDown(KeyCode.D))
-        //{
-        //    print("bouton d");
-        //    Eteindre();
-        //}
-        //if (Input.GetKeyDown(KeyCode.S))
-        //{
-        //    print("bouton S");
-        //    Glitcher();
-        //}
+        //TODO test
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            print("bouton q");
+            Allumer();
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            print("bouton d");
+            Eteindre();
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            print("bouton S");
+            Glitcher();
+        }
     }
     private void Start()
     {
