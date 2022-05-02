@@ -14,9 +14,10 @@ public class Astre_affichage : MonoBehaviour
 
     void Start()
     {
+        ren = this.GetComponent<Renderer>();
         coroutine = AnimationChangerMat();
         fac_power = 0f;
-        ren = this.GetComponent<Renderer>();
+        ren.material.SetFloat("_power", fac_power);
     }
 
     void Update()
@@ -69,7 +70,7 @@ public class Astre_affichage : MonoBehaviour
     }
 
 
-    IEnumerator AnimationChangerMat()
+    private IEnumerator AnimationChangerMat()
     {
         float vitesse = 2f;
 
