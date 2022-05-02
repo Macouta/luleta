@@ -27,6 +27,10 @@ public class Astre_manager : MonoBehaviour
         }
     }
 
+    public Astre getAstreCourant() {
+        return liste_astres[astre_actuel];
+    }
+
     public void DecouvrirAstre()
     {
         astres_decouverts += 1;
