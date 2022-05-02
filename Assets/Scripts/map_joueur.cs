@@ -76,17 +76,23 @@ public class map_joueur : MonoBehaviour
     }
     IEnumerator SautHyperEspaceAnimation(Astre astre_destination)
     {
+        //depart
         enHyperEspace = true;
-        astre_destination.Arriver();
+        if (astre_actuel == null)
+        {
+            astre_manager.DefinirAstreActuel(-1);
+        }
+        else {
+            astre_actuel.Deselectionner();
+            astre_actuel.Partir();
+        }
 
-        //pos
+        //deplacement
         float duree = 1f;
         float temps_debut = Time.time;
         Vector3 delta_difference = transform.position - astre_destination.transform.position;
         Vector3 pos_debut = astre_manager.transform.position;
         Vector3 pos_arrivee = pos_debut + delta_difference;
-
-        //anim
         while (Time.time < temps_debut + duree)
         {
             astre_manager.transform.position = new Vector3(
@@ -96,6 +102,9 @@ public class map_joueur : MonoBehaviour
                                             );
             yield return null;
         }
+
+        //arrivee
+        astre_destination.Arriver();
         astre_actuel = astre_destination;
         enHyperEspace = false;
         yield return null;

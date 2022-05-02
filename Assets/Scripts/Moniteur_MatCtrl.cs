@@ -5,32 +5,17 @@ using UnityEngine;
 public class Moniteur_MatCtrl : MonoBehaviour
 {
     private float speed = 3f;
-    private Material mat_moniteur;
+    public Renderer ren;
     private IEnumerator coroutine;
 
     private void Update()
     {
-        //TODO test
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            print("bouton q");
-            Allumer();
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            print("bouton d");
-            Eteindre();
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            print("bouton S");
-            Glitcher();
-        }
+
     }
     private void Start()
     {
-        mat_moniteur = GetComponent<Renderer>().material;
-        mat_moniteur.SetFloat("_Close", 1f);
+        ren = GetComponent<Renderer>();
+        ren.material.SetFloat("_Close", 1f);
     }
 
     //Fonctions publiques
@@ -59,33 +44,33 @@ public class Moniteur_MatCtrl : MonoBehaviour
     // Coroutines
     private IEnumerator Allumage()
     {
-        while (mat_moniteur.GetFloat("_Close") >= 0f)
+        while (ren.material.GetFloat("_Close") >= 0f)
         {
-            mat_moniteur.SetFloat("_Close", Mathf.Max(0f, mat_moniteur.GetFloat("_Close") - Time.deltaTime * speed));
+            ren.material.SetFloat("_Close", Mathf.Max(0f, ren.material.GetFloat("_Close") - Time.deltaTime * speed));
             yield return null;
         }
     }
     private IEnumerator Eteignage()
     {
-        while (mat_moniteur.GetFloat("_Close") <= 1f)
+        while (ren.material.GetFloat("_Close") <= 1f)
         {
-            mat_moniteur.SetFloat("_Close", Mathf.Min(1f, mat_moniteur.GetFloat("_Close") + Time.deltaTime * speed));
+            ren.material.SetFloat("_Close", Mathf.Min(1f, ren.material.GetFloat("_Close") + Time.deltaTime * speed));
             yield return null;
         }
     }
     private IEnumerator Glitchage(float duree)
     {
-        float defaut_vitesse = mat_moniteur.GetFloat("_DistortionVitesse");
-        float defaut_mult = mat_moniteur.GetFloat("_DistortionMult");
+        float defaut_vitesse = ren.material.GetFloat("_DistortionVitesse");
+        float defaut_mult = ren.material.GetFloat("_DistortionMult");
         while (duree > 0f)
         {
             duree -= Time.deltaTime;
-            mat_moniteur.SetFloat("_DistortionVitesse", Random.Range(0f, 10f));
-            mat_moniteur.SetFloat("_DistortionMult", Random.Range(0f, 10f));
+            ren.material.SetFloat("_DistortionVitesse", Random.Range(0f, 10f));
+            ren.material.SetFloat("_DistortionMult", Random.Range(0f, 10f));
             yield return null;
         }
-        mat_moniteur.SetFloat("_DistortionVitesse", defaut_vitesse);
-        mat_moniteur.SetFloat("_DistortionMult", defaut_mult);
+        ren.material.SetFloat("_DistortionVitesse", defaut_vitesse);
+        ren.material.SetFloat("_DistortionMult", defaut_mult);
     }
 
 }

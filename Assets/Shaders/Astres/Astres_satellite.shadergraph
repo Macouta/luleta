@@ -1678,6 +1678,9 @@
             "m_Id": "e9ea85a1f5374f5493c4a4af17a64b31"
         },
         {
+            "m_Id": "4d54adea92df4f908d07270e61c69b65"
+        },
+        {
             "m_Id": "9f63dc2249284bffb6769c22613e6f0b"
         },
         {
@@ -1685,6 +1688,9 @@
         },
         {
             "m_Id": "f473c2b83b3d4b41ba4ce32f20a60453"
+        },
+        {
+            "m_Id": "c0cb75bd073740dd816522ed66df6c7e"
         }
     ],
     "synonyms": [],
@@ -1699,13 +1705,15 @@
         "738e1935-3041-428e-a173-c2dc7dd04d37",
         "2147ae89-3657-4f34-926d-95ec80b0237f",
         "4f1b3809-2986-4bb0-8614-ddb77743f07d",
-        "b9e04ba0-eae2-448a-85d9-1b72c2959f70"
+        "b9e04ba0-eae2-448a-85d9-1b72c2959f70",
+        "ca3b6fe4-510f-447c-ab59-2c15ae1b4350"
     ],
     "m_PropertyIds": [
         -628127064,
         -37403188,
         -830060930,
-        -1118971
+        -1118971,
+        -886539026
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -3831,6 +3839,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "4d54adea92df4f908d07270e61c69b65",
+    "m_Id": -886539026,
+    "m_DisplayName": "Emission",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Emission",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "4e6fcc0d964d4fad88ac2d8f5867d5ea",
     "m_Id": -742321771,
@@ -4396,7 +4427,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Normal",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -4479,7 +4510,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Normal",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -5139,10 +5170,10 @@
     "m_Guid": {
         "m_GuidSerialized": "00eed70f-2485-40b8-ab19-eb02eca55c04"
     },
-    "m_Name": "power",
+    "m_Name": "Close",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "power",
-    "m_DefaultReferenceName": "_power",
+    "m_RefNameGeneratedByDisplayName": "Close",
+    "m_DefaultReferenceName": "_Close",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -5192,7 +5223,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_power",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -6755,6 +6786,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "c0cb75bd073740dd816522ed66df6c7e",
+    "m_Id": 4,
+    "m_DisplayName": "Emission",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Emission",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "c0d8cacac5474b87b5512e3c0e1e2730",
     "m_Id": -1347398241,
@@ -8151,7 +8205,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Smoothness",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.5,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -8440,7 +8494,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -8722,7 +8776,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "ff02adfb42f144308d5ef8fdfc105a5e",
     "m_Id": 0,
-    "m_DisplayName": "power",
+    "m_DisplayName": "Close",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
