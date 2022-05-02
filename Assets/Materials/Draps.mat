@@ -49,6 +49,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: b84ed2a6ba7fc604a88b163bfdef61c0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_5575b30b7d5246cbac016125e3053159_Texture_1:
+        m_Texture: {fileID: 2800000, guid: f1aa44040baef2a4c9aaed9a26cabfae, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b18a237573594539955c1fbb37254d4f_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 9a0a6e98bfabc1343a0217687613f1ed, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_beb4ced2ce3f46828a39ad3c20d8ef6c_Texture_1:
         m_Texture: {fileID: 2800000, guid: efdac2b83d4352745b70ad58d00e4b77, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -120,10 +128,12 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
-    - _fl2: 3.15
-    - _flt1: 4.69
+    - _fl2: 4.84
+    - _flt1: 8.84
     m_Colors:
     - _Color: {r: 0.13207547, g: 0.29008752, b: 0.5283019, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _etoiles: {r: 0.9622641, g: 0.8441938, b: 0.24964395, a: 0}
+    - _fond: {r: 0.21711457, g: 0.27128726, b: 0.38679245, a: 0}
   m_BuildTextureStacks: []

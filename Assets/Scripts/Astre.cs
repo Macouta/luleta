@@ -11,7 +11,7 @@ public class Astre : MonoBehaviour
     public int id;
     public string nom, type;
     public int periode_rotation, periode_revolution, diametre, population, defense;
-    private Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>() //TODO probabilite apparition
+    private Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>()
     {   // type, rotation_max, revolution_max, diametre_max, population_max
         {"Planète tellurique", new(){1500, 1500000, 50000, 1000000000}},
         {"Planète gazeuse",    new(){1500, 1500000, 50000, 1000000000}},
@@ -148,7 +148,7 @@ public class Astre : MonoBehaviour
         return HarmonicColors;
     }
 
-    //TODO régler et décider comment les couleurs fonctionnent
+    //TODO Améliorer l'harmonie des couleurs, éviter certaines ? (violet)
 
     public void Selectionner()
     {
@@ -178,7 +178,3 @@ public class Astre : MonoBehaviour
         astre_manager.DefinirAstreActuel(id);
     }
 }
-
-
-//TODO
-//trouver des noms
