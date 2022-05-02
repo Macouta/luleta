@@ -29,13 +29,8 @@ public class Moniteur_MatCtrl : MonoBehaviour
     }
     private void Start()
     {
-<<<<<<< HEAD
-        mat_moniteur.SetFloat("_Close", 50f);
-        // StartCoroutine(HandleStart(mainMaterial));
-=======
         mat_moniteur = GetComponent<Renderer>().material;
         mat_moniteur.SetFloat("_Close", 1f);
->>>>>>> remotes/origin/planetes
     }
 
     //Fonctions publiques
@@ -80,11 +75,6 @@ public class Moniteur_MatCtrl : MonoBehaviour
     }
     private IEnumerator Glitchage(float duree)
     {
-<<<<<<< HEAD
-        // StartCoroutine(HandleStart(infoMaterial));
-        // StartCoroutine(HandleStart(interactionMaterial));
-        // SceneManager.LoadScene("GameScene");
-=======
         float defaut_vitesse = mat_moniteur.GetFloat("_DistortionVitesse");
         float defaut_mult = mat_moniteur.GetFloat("_DistortionMult");
         while (duree > 0f)
@@ -96,7 +86,6 @@ public class Moniteur_MatCtrl : MonoBehaviour
         }
         mat_moniteur.SetFloat("_DistortionVitesse", defaut_vitesse);
         mat_moniteur.SetFloat("_DistortionMult", defaut_mult);
->>>>>>> remotes/origin/planetes
     }
 
 }
