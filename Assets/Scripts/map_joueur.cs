@@ -11,6 +11,10 @@ public class map_joueur : MonoBehaviour
     private float dist = 0.75f;
     private float dist_start = 0.25f;
 
+    private bool mouseHold;
+
+    public bool MouseHold { get => mouseHold; set => mouseHold = value; }
+
     void Start()
     {
 
@@ -18,6 +22,11 @@ public class map_joueur : MonoBehaviour
 
     void Update()
     {
+
+        if(mouseHold) {
+            float pos = -Input.GetAxis("Mouse X");
+            Tourner(pos);
+        }
         // Controles
         //TODO controles pour test seulement
         if (Input.GetKey(KeyCode.Q))

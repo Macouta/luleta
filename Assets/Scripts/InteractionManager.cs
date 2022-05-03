@@ -19,6 +19,8 @@ public class InteractionManager : MonoBehaviour
     [BoxGroup("Wheel")]
     public GameObject wheel;
     [BoxGroup("Wheel")]
+    public map_joueur player;
+    [BoxGroup("Wheel")]
     public float wheelRotSpeed = 200f;
     [BoxGroup("Jump")]
     public GameObject jumpButton;
@@ -51,6 +53,7 @@ public class InteractionManager : MonoBehaviour
         set {
             wheelHold = value; 
             cameraRig.MouseHold = value;
+            player.MouseHold = value;
         }
     }
 
@@ -135,6 +138,6 @@ public class InteractionManager : MonoBehaviour
     void onJumpButtonClicked(Transform t) {
         Debug.Log("JUMP");
         onJump.Invoke();
-        t.DOLocalMoveZ(t.localPosition.y - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+        t.DOLocalMoveZ(t.localPosition.x - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
     }
 }
