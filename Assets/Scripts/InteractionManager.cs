@@ -41,6 +41,7 @@ public class InteractionManager : MonoBehaviour
     public UnityEvent onTrade;
     public UnityEvent onInvade;
     public UnityEvent onJump;
+    public UnityEvent onJumpFailed;
 
 
     private bool wheelHold = false;
@@ -132,12 +133,12 @@ public class InteractionManager : MonoBehaviour
     }
 
     void onPowerButtonClicked(Transform t){
-        if (!poweredOn){ // si éteint
+        if (!poweredOn){ // si ï¿½teint
             poweredOn = true;
             Debug.Log("POWER ON");
             onPowerOn.Invoke();
         }
-        else if (poweredOn){ // si allumé
+        else if (poweredOn){ // si allumï¿½
             poweredOn = false;
             Debug.Log("POWER OFF");
             onPowerOff.Invoke();
@@ -146,8 +147,13 @@ public class InteractionManager : MonoBehaviour
     }
 
     void onJumpButtonClicked(Transform t){
-        Debug.Log("JUMP");
-        onJump.Invoke();
-        t.DOLocalMoveZ(t.localPosition.x - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+        if(player.isJumpAllowed()) {
+            Debug.Log("JUMP");
+            onJump.Invoke();
+            t.DOLocalMoveZ(t.localPosition.x - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+        } else {
+            onJumpFailed.Invoke();
+        }
+        
     }
 }

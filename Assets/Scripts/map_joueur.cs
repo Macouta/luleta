@@ -77,11 +77,15 @@ public class map_joueur : MonoBehaviour
     }
     public void SauterHyperEspace()
     {
-        if (astre_vise!=null && !astre_vise.inaccessible && !enHyperEspace)
+        if (isJumpAllowed())
         {
             IEnumerator coroutine = SautHyperEspaceAnimation(astre_vise);
             StartCoroutine(coroutine);
         }
+    }
+
+    public bool isJumpAllowed() {
+        return astre_vise != null && !astre_vise.inaccessible && !enHyperEspace;
     }
     IEnumerator SautHyperEspaceAnimation(Astre astre_destination)
     {

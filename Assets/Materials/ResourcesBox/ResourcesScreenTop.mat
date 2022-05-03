@@ -185,7 +185,7 @@ Material:
     - _Anisotropy: 0
     - _BlendMode: 0
     - _BumpScale: 1
-    - _Close: 0
+    - _Close: 1
     - _CoatMask: 0
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
@@ -207,11 +207,7 @@ Material:
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 1
     - _DstBlend: 0
-<<<<<<< HEAD
     - _Emission_mult: 20
-=======
-    - _Emission_mult: 9999
->>>>>>> 25f90abde1804e3ffe30795fd4bd30b9befcab16
     - _EmissiveColorMode: 1
     - _EmissiveExposureWeight: 1
     - _EmissiveIntensity: 0.25
