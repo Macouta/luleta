@@ -36,15 +36,17 @@ public class InteractionManager : MonoBehaviour
 
     [Space]
 
-    public UnityEvent onPowerButton;
+    public UnityEvent onPowerOn;
+    public UnityEvent onPowerOff;
     public UnityEvent onTrade;
     public UnityEvent onInvade;
     public UnityEvent onJump;
 
-    // Update is called once per frame
 
     private bool wheelHold = false;
     private bool clickCooldown = false;
+
+    private bool poweredOn = false;
 
     private CameraRig cameraRig;
 
@@ -90,9 +92,9 @@ public class InteractionManager : MonoBehaviour
                     onInvadeLeverClicked(hit.transform);
                 if(name == jumpButton.name)
                     onJumpButtonClicked(hit.transform);
-                if(name == powerButton.name)
+                if (name == powerButton.name)
                     onPowerButtonClicked(hit.transform);
-                if(name == wheel.name)
+                if (name == wheel.name)
                     WheelHold = true;
             }  
         }
@@ -129,13 +131,21 @@ public class InteractionManager : MonoBehaviour
         });
     }
 
-    void onPowerButtonClicked(Transform t) {
-        Debug.Log("POWER ON");
-        onPowerButton.Invoke();
+    void onPowerButtonClicked(Transform t){
+        if (!poweredOn){ // si éteint
+            poweredOn = true;
+            Debug.Log("POWER ON");
+            onPowerOn.Invoke();
+        }
+        else if (poweredOn){ // si allumé
+            poweredOn = false;
+            Debug.Log("POWER OFF");
+            onPowerOff.Invoke();
+        }
         t.DOLocalMoveZ(t.localPosition.z - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
     }
 
-    void onJumpButtonClicked(Transform t) {
+    void onJumpButtonClicked(Transform t){
         Debug.Log("JUMP");
         onJump.Invoke();
         t.DOLocalMoveZ(t.localPosition.x - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);

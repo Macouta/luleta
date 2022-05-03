@@ -1365,6 +1365,29 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "0e6cfd2d847a43ffb1204b7a82843085",
+    "m_Id": -886539026,
+    "m_DisplayName": "Emission",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Emission",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "0f71dd0b4d9f4bf089a610b72cf00b16",
     "m_Id": -300294172,
@@ -3189,7 +3212,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "596482df2937448bb7d7297012a82494",
     "m_Id": 0,
-    "m_DisplayName": "power",
+    "m_DisplayName": "Close",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -3523,7 +3546,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_power",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -4803,7 +4826,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Normal",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -5027,6 +5050,9 @@
             "m_Id": "b4da29c55ded4983b06084a4773fb842"
         },
         {
+            "m_Id": "0e6cfd2d847a43ffb1204b7a82843085"
+        },
+        {
             "m_Id": "9e664ef2f1ae45e98d608ea5c2be2d39"
         },
         {
@@ -5034,6 +5060,9 @@
         },
         {
             "m_Id": "d03bb904e0d646c8acb5973ac6aba0b3"
+        },
+        {
+            "m_Id": "c21db57497264f2caa2f529cf2c72836"
         }
     ],
     "synonyms": [],
@@ -5048,13 +5077,15 @@
         "738e1935-3041-428e-a173-c2dc7dd04d37",
         "2147ae89-3657-4f34-926d-95ec80b0237f",
         "4f1b3809-2986-4bb0-8614-ddb77743f07d",
-        "b9e04ba0-eae2-448a-85d9-1b72c2959f70"
+        "b9e04ba0-eae2-448a-85d9-1b72c2959f70",
+        "ca3b6fe4-510f-447c-ab59-2c15ae1b4350"
     ],
     "m_PropertyIds": [
         -628127064,
         -37403188,
         -830060930,
-        -1118971
+        -1118971,
+        -886539026
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -5269,10 +5300,10 @@
     "m_Guid": {
         "m_GuidSerialized": "9870d930-abc5-4b81-96c6-0c93ca05f6ad"
     },
-    "m_Name": "power",
+    "m_Name": "Close",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "power",
-    "m_DefaultReferenceName": "_power",
+    "m_RefNameGeneratedByDisplayName": "Close",
+    "m_DefaultReferenceName": "_Close",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -5546,7 +5577,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Smoothness",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -5935,6 +5966,29 @@
     "m_StageCapability": 3,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
+    "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector3MaterialSlot",
+    "m_ObjectId": "c21db57497264f2caa2f529cf2c72836",
+    "m_Id": 4,
+    "m_DisplayName": "Emission",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Emission",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
+    "m_DefaultValue": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+    },
     "m_Labels": []
 }
 
@@ -6352,7 +6406,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -7368,7 +7422,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Normal",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,

@@ -1615,7 +1615,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Normal",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -1997,7 +1997,7 @@
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Smoothness",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -2060,7 +2060,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Smoothness",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.5,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -3787,7 +3787,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_power",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
@@ -4158,10 +4158,10 @@
     "m_Guid": {
         "m_GuidSerialized": "3123901f-604c-4060-ab2f-53040457d189"
     },
-    "m_Name": "power",
+    "m_Name": "Close",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "power",
-    "m_DefaultReferenceName": "_power",
+    "m_RefNameGeneratedByDisplayName": "Close",
+    "m_DefaultReferenceName": "_Close",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -6598,7 +6598,7 @@
     "m_SlotType": 0,
     "m_Hidden": false,
     "m_ShaderOutputName": "_Normal",
-    "m_StageCapability": 3,
+    "m_StageCapability": 2,
     "m_Value": {
         "x": 0.0,
         "y": 0.0,
@@ -6870,7 +6870,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "f74c166e4a74478893f61f1e2e559838",
     "m_Id": 0,
-    "m_DisplayName": "power",
+    "m_DisplayName": "Close",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
