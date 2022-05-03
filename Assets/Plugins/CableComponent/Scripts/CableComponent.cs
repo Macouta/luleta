@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 
 
+[ExecuteInEditMode]
 public class CableComponent : MonoBehaviour
 {
 	#region Class members
@@ -76,8 +77,9 @@ public class CableComponent : MonoBehaviour
 	void InitLineRenderer()
 	{
 		line = this.gameObject.AddComponent<LineRenderer>();
-		line.SetWidth(cableWidth, cableWidth);
-		line.SetVertexCount(segments + 1);
+		line.startWidth  = cableWidth;
+		line.endWidth  = cableWidth;
+		line.positionCount = segments + 1;
 		line.material = cableMaterial;
 		line.GetComponent<Renderer>().enabled = true;
 	}
@@ -101,7 +103,9 @@ public class CableComponent : MonoBehaviour
 	{
 		for (int pointIdx = 0; pointIdx < segments + 1; pointIdx++) 
 		{
-			line.SetPosition(pointIdx, points [pointIdx].Position);
+			Debug.Log(line);
+			Debug.Log(points[pointIdx]);
+			line.SetPosition(pointIdx, points[pointIdx].Position);
 		}
 	}
 

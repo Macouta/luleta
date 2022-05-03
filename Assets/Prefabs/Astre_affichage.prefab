@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7437540888840985866}
   - component: {fileID: 7437540888840985867}
   - component: {fileID: 7437540888840985871}
+  - component: {fileID: 7068371283344090113}
   m_Layer: 0
   m_Name: Astre_affichage
   m_TagString: Untagged
@@ -115,3 +116,15 @@ MonoBehaviour:
   mat_satellite: {fileID: 2100000, guid: 3116943723f43904386b0254fb6a3671, type: 2}
   mat_comete: {fileID: 2100000, guid: 864f292e3fbe9f4418edccf3ebd647b7, type: 2}
   mat_etoile: {fileID: 2100000, guid: d8e33178f5456a448a93b93c7e9c4ede, type: 2}
+--- !u!114 &7068371283344090113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7437540888840985864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35080142bacbe464ca23ac7e3cde196a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -11,6 +11,10 @@ public class map_joueur : MonoBehaviour
     private float dist = 0.75f;
     private float dist_start = 0.25f;
 
+    private bool mouseHold;
+
+    public bool MouseHold { get => mouseHold; set => mouseHold = value; }
+
     void Start()
     {
 
@@ -18,6 +22,11 @@ public class map_joueur : MonoBehaviour
 
     void Update()
     {
+
+        if(mouseHold) {
+            float pos = -Input.GetAxis("Mouse X");
+            Tourner(pos);
+        }
         // Controles
         //TODO controles pour test seulement
         if (Input.GetKey(KeyCode.Q))
@@ -68,25 +77,35 @@ public class map_joueur : MonoBehaviour
     }
     public void SauterHyperEspace()
     {
-        if (astre_vise!=null && !astre_vise.inaccessible && !enHyperEspace)
+        if (isJumpAllowed())
         {
             IEnumerator coroutine = SautHyperEspaceAnimation(astre_vise);
             StartCoroutine(coroutine);
         }
     }
+
+    public bool isJumpAllowed() {
+        return astre_vise != null && !astre_vise.inaccessible && !enHyperEspace;
+    }
     IEnumerator SautHyperEspaceAnimation(Astre astre_destination)
     {
+        //depart
         enHyperEspace = true;
-        astre_destination.Arriver();
+        if (astre_actuel == null)
+        {
+            astre_manager.DefinirAstreActuel(-1);
+        }
+        else {
+            astre_actuel.Deselectionner();
+            astre_actuel.Partir();
+        }
 
-        //pos
+        //deplacement
         float duree = 1f;
         float temps_debut = Time.time;
         Vector3 delta_difference = transform.position - astre_destination.transform.position;
         Vector3 pos_debut = astre_manager.transform.position;
         Vector3 pos_arrivee = pos_debut + delta_difference;
-
-        //anim
         while (Time.time < temps_debut + duree)
         {
             astre_manager.transform.position = new Vector3(
@@ -96,6 +115,9 @@ public class map_joueur : MonoBehaviour
                                             );
             yield return null;
         }
+
+        //arrivee
+        astre_destination.Arriver();
         astre_actuel = astre_destination;
         enHyperEspace = false;
         yield return null;

@@ -9,15 +9,13 @@ public class Astre_affichage : MonoBehaviour
     public Material mat_tellurique, mat_gazeux, mat_satellite, mat_comete, mat_etoile;
     private Renderer ren;
     private Astre astre;
-    private float fac_power;
+    private Moniteur_MatCtrl moniteur;
     private IEnumerator coroutine;
 
     void Start()
     {
+        moniteur = this.GetComponent<Moniteur_MatCtrl>();
         ren = this.GetComponent<Renderer>();
-        coroutine = AnimationChangerMat();
-        fac_power = 0f;
-        ren.material.SetFloat("_power", fac_power);
     }
 
     void Update()
@@ -26,15 +24,23 @@ public class Astre_affichage : MonoBehaviour
         {
             this.transform.Rotate(new Vector3(0f, astre.vitesse_rot * Time.deltaTime, 0f));
         }
+        else
+        {   // il n'y a pas d'astre
+            ren.material.SetFloat("_Close", 1f);
+        }
     }
-
+    public void EteindreAffichage()
+    {
+        moniteur.Eteindre();
+    }
     public void AfficherAstre(Astre astre_a_afficher)
     {
         astre = astre_a_afficher;
-        StopCoroutine(coroutine);
-        coroutine = AnimationChangerMat();
-        StartCoroutine(coroutine);
+        ChangerMat();
+        moniteur.Allumer();
+        print("astre affichage : allumer moniteur");
     }
+
 
     private void ChangerMat()
     {
@@ -60,34 +66,12 @@ public class Astre_affichage : MonoBehaviour
             ren.material = mat_etoile;
         }
 
-        //ren.material.SetFloat("_power", fac_power);
+        ren.material.SetFloat("_Close", 1f);
         ren.material.SetFloat("_scale", astre.scale);
         ren.material.SetVector("_offset", astre.offset);
         ren.material.SetColor("_col_A", astre.col_A);
         ren.material.SetColor("_col_B", astre.col_B);
         ren.material.SetColor("_col_C", astre.col_C);
         ren.material.SetColor("_col_D", astre.col_D);
-    }
-
-
-    private IEnumerator AnimationChangerMat()
-    {
-        float vitesse = 2f;
-
-        while (fac_power > 0f)
-        {
-            fac_power = Mathf.Clamp01(fac_power - Time.deltaTime * vitesse);
-            ren.material.SetFloat("_power", fac_power);
-            yield return null;
-        }
-
-        ChangerMat();
-
-        while (fac_power < 1f)
-        {
-            fac_power = Mathf.Clamp01(fac_power + Time.deltaTime * vitesse);
-            ren.material.SetFloat("_power", fac_power);
-            yield return null;
-        }
     }
 }

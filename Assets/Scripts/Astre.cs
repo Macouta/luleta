@@ -158,6 +158,10 @@ public class Astre : MonoBehaviour
     {
         image.color = col_defaut;
     }
+    public void Partir()
+    {
+        astre_manager.DefinirAstreActuel(-1);
+    }
     public void Arriver()
     {
         visites++;
@@ -175,6 +179,6 @@ public class Astre : MonoBehaviour
         col_defaut = Color.black;
         col_selection = Color.red;
         image.color = col_defaut;
-        astre_manager.DefinirAstreActuel(id);
+        astre_manager.DefinirAstreActuel(id); //mettre à jour les infos de description
     }
 }

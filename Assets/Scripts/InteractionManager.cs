@@ -19,6 +19,8 @@ public class InteractionManager : MonoBehaviour
     [BoxGroup("Wheel")]
     public GameObject wheel;
     [BoxGroup("Wheel")]
+    public map_joueur player;
+    [BoxGroup("Wheel")]
     public float wheelRotSpeed = 200f;
     [BoxGroup("Jump")]
     public GameObject jumpButton;
@@ -34,15 +36,18 @@ public class InteractionManager : MonoBehaviour
 
     [Space]
 
-    public UnityEvent onPowerButton;
+    public UnityEvent onPowerOn;
+    public UnityEvent onPowerOff;
     public UnityEvent onTrade;
     public UnityEvent onInvade;
     public UnityEvent onJump;
+    public UnityEvent onJumpFailed;
 
-    // Update is called once per frame
 
     private bool wheelHold = false;
     private bool clickCooldown = false;
+
+    private bool poweredOn = false;
 
     private CameraRig cameraRig;
 
@@ -51,6 +56,7 @@ public class InteractionManager : MonoBehaviour
         set {
             wheelHold = value; 
             cameraRig.MouseHold = value;
+            player.MouseHold = value;
         }
     }
 
@@ -87,9 +93,9 @@ public class InteractionManager : MonoBehaviour
                     onInvadeLeverClicked(hit.transform);
                 if(name == jumpButton.name)
                     onJumpButtonClicked(hit.transform);
-                if(name == powerButton.name)
+                if (name == powerButton.name)
                     onPowerButtonClicked(hit.transform);
-                if(name == wheel.name)
+                if (name == wheel.name)
                     WheelHold = true;
             }  
         }
@@ -126,15 +132,28 @@ public class InteractionManager : MonoBehaviour
         });
     }
 
-    void onPowerButtonClicked(Transform t) {
-        Debug.Log("POWER ON");
-        onPowerButton.Invoke();
+    void onPowerButtonClicked(Transform t){
+        if (!poweredOn){ // si �teint
+            poweredOn = true;
+            Debug.Log("POWER ON");
+            onPowerOn.Invoke();
+        }
+        else if (poweredOn){ // si allum�
+            poweredOn = false;
+            Debug.Log("POWER OFF");
+            onPowerOff.Invoke();
+        }
         t.DOLocalMoveZ(t.localPosition.z - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
     }
 
-    void onJumpButtonClicked(Transform t) {
-        Debug.Log("JUMP");
-        onJump.Invoke();
-        t.DOLocalMoveZ(t.localPosition.y - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+    void onJumpButtonClicked(Transform t){
+        if(player.isJumpAllowed()) {
+            Debug.Log("JUMP");
+            onJump.Invoke();
+            t.DOLocalMoveZ(t.localPosition.x - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+        } else {
+            onJumpFailed.Invoke();
+        }
+        
     }
 }

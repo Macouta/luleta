@@ -27,6 +27,10 @@ public class Astre_manager : MonoBehaviour
         }
     }
 
+    public Astre getAstreCourant() {
+        return liste_astres[astre_actuel];
+    }
+
     public void DecouvrirAstre()
     {
         astres_decouverts += 1;
@@ -39,15 +43,22 @@ public class Astre_manager : MonoBehaviour
 
     public void DefinirAstreActuel(int id)
     {
-        if (astre_actuel != id)
+        if (id == -1)//il n'y a pas d'astre actuel
         {
-            liste_astres[astre_actuel].Deselectionner();
+            EteindreAstreActuel();
+        }
+        else if (astre_actuel != id)
+        {
             astre_actuel = id;
             AfficherAstreActuel();
+            DecrireAstreActuel();
         }
-        DecrireAstreActuel();
     }
 
+    private void EteindreAstreActuel()
+    {
+        astre_affichage.EteindreAffichage();
+    }
     private void AfficherAstreActuel()
     {
         astre_affichage.AfficherAstre(liste_astres[astre_actuel]);
