@@ -135,5 +135,5 @@ Material:
     - _DoubleSidedConstants: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _etoiles: {r: 0.9622641, g: 0.8441938, b: 0.24964395, a: 0}
-    - _fond: {r: 0.21711457, g: 0.27128726, b: 0.38679245, a: 0}
+    - _fond: {r: 0.4575472, g: 0.6301459, b: 1, a: 0}
   m_BuildTextureStacks: []
