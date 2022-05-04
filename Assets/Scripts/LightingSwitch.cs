@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LightingSwitch : MonoBehaviour
 {
+    private Light[] lights;
 
     public float neutral_intensity;
     public float fictional_intensity;
@@ -11,13 +12,15 @@ public class LightingSwitch : MonoBehaviour
     public float neutral_temperature;
     public float fictional_temperature;
 
+    public GameObject neut_light;
+    public GameObject fic_light;
+
     public float duration;
 
     // Start is called before the first frame update
     void Start()
     {
-        neutralLighting(duration);
-        fictionalLighting(duration);
+
     }
 
     // Update is called once per frame
@@ -25,10 +28,14 @@ public class LightingSwitch : MonoBehaviour
     {
         if (Input.GetKeyDown("f"))
         {
+            neut_light.SetActive(true);
+            fic_light.SetActive(false);
             StartCoroutine(neutralLighting(duration));
         }
         if (Input.GetKeyDown("g"))
         {
+            neut_light.SetActive(false);
+            fic_light.SetActive(true);
             StartCoroutine(fictionalLighting(duration));
         }
     }
@@ -36,18 +43,20 @@ public class LightingSwitch : MonoBehaviour
     IEnumerator neutralLighting(float duration)
     {
         float counter = 0f;
-        Debug.Log("test neutral");
-        while (counter < duration)
+        lights = FindObjectsOfType(typeof(Light)) as Light[];
+
+        foreach (Light current_light in lights)
         {
-            counter += Time.deltaTime;
+            counter = 0f;
+            Debug.Log("test neutral : " + current_light.name);
+            while (counter < duration)
+            {
+                counter += Time.deltaTime;
+                Debug.Log("test neutral : " + counter);
 
-            Light current_light = this.transform.GetChild(0).gameObject.GetComponent<Light>();
-            current_light.intensity = Mathf.Lerp(fictional_intensity, neutral_intensity, counter / duration);
-            current_light.colorTemperature = Mathf.Lerp(fictional_temperature, neutral_temperature, counter / duration);
-
-            current_light = this.transform.GetChild(1).gameObject.GetComponent<Light>();
-            current_light.intensity = Mathf.Lerp(fictional_intensity, neutral_intensity, counter / duration);
-            current_light.colorTemperature = Mathf.Lerp(fictional_temperature, neutral_temperature, counter / duration);
+                current_light.intensity = Mathf.Lerp(fictional_intensity, neutral_intensity, counter / duration);
+                current_light.colorTemperature = Mathf.Lerp(fictional_temperature, neutral_temperature, counter / duration);
+            }
             yield return null;
         }
     }
@@ -55,18 +64,20 @@ public class LightingSwitch : MonoBehaviour
     IEnumerator fictionalLighting(float duration)
     {
         float counter = 0f;
-        Debug.Log("test fictional");
-        while (counter < duration)
+        lights = FindObjectsOfType(typeof(Light)) as Light[];
+
+        foreach (Light current_light in lights)
         {
-            counter += Time.deltaTime;
+            counter = 0f;
+            Debug.Log("test fictional : " + current_light.name);
+            while (counter < duration)
+            {
+                counter += Time.deltaTime;
+                Debug.Log("test fictional : " + counter);
 
-            Light current_light = this.transform.GetChild(0).gameObject.GetComponent<Light>();
-            current_light.intensity = Mathf.Lerp(neutral_intensity, fictional_intensity, counter / duration);
-            current_light.colorTemperature = Mathf.Lerp(neutral_temperature, fictional_temperature, counter / duration);
-
-            current_light = this.transform.GetChild(1).gameObject.GetComponent<Light>();
-            current_light.intensity = Mathf.Lerp(neutral_intensity, fictional_intensity, counter / duration);
-            current_light.colorTemperature = Mathf.Lerp(neutral_temperature, fictional_temperature, counter / duration);
+                current_light.intensity = Mathf.Lerp(neutral_intensity, fictional_intensity, counter / duration);
+                current_light.colorTemperature = Mathf.Lerp(neutral_temperature, fictional_temperature, counter / duration);
+            }
             yield return null;
         }
     }
