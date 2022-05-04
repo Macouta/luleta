@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5919d055d1f14344d946ffd65cca52bb
+guid: b26cf8847385c1340b4f295612d3738a
 ModelImporter:
   serializedVersion: 21202
   internalIDToNameTable:
@@ -26,7 +26,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Draps
-    second: {fileID: 2100000, guid: 7dda2972837a302459c63c8ab21b172b, type: 2}
+    second: {fileID: 2100000, guid: be23210e17cd6cc4b9d35348ff03ae5e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
