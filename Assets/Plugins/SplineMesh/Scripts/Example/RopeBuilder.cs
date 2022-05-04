@@ -30,6 +30,7 @@ namespace SplineMesh {
         public GameObject segmentPrefab;
         public int segmentCount;
         public float segmentSpacing;
+        public Rigidbody hangingRigidbody;
 
         private void OnEnable() {
             spline = GetComponent<Spline>();
@@ -49,9 +50,9 @@ namespace SplineMesh {
             UpdateNodes();
 
             // balancing
-            if (Application.isPlaying) {
-                firstSegment.transform.localPosition = new Vector3(Mathf.Sin(Time.time) * 3, 0, 0);
-            }
+            // if (Application.isPlaying) {
+            //     firstSegment.transform.localPosition = new Vector3(Mathf.Sin(Time.time) * 3, 0, 0);
+            // }
         }
 
         private void UpdateNodes() {
@@ -85,7 +86,7 @@ namespace SplineMesh {
 
             float localSpacing = 0;
             Joint joint = null;
-            for (int i = 0; i < segmentCount; i++) {
+            for (int i = 0; i <= segmentCount; i++) {
                 var seg = UOUtility.Instantiate(segmentPrefab, Generated.transform);
                 seg.transform.Translate(0, 0, localSpacing);
 
@@ -101,12 +102,13 @@ namespace SplineMesh {
                     joint.connectedBody = segRB;
                 }
                 joint = seg.GetComponent<Joint>();
-
+                
                 // we save segments as way points for the spline deformation.
                 wayPoints.Add(seg);
                 localSpacing += segmentSpacing;
             }
-            UOUtility.Destroy(joint);
+            // UOUtility.Destroy(joint);
+            joint.connectedBody = hangingRigidbody;
         }
     }
 }

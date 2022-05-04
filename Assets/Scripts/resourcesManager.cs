@@ -29,7 +29,6 @@ public class resourcesManager : MonoBehaviour
     public void updateAstreCourant() {
         current = player.Astre_actuel;
         resetLedColor(current);
-        Debug.Log(current.type);
         
     }
 
@@ -73,7 +72,6 @@ public class resourcesManager : MonoBehaviour
     }
 
     public void trade() {
-        Debug.Log(current.type);
         switch(current.type) {
             case "Planète tellurique":
                 updateBar(argent_bar, comestible_bar);
