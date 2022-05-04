@@ -24668,7 +24668,7 @@ MonoBehaviour:
         DebugActive: 0
         BoundLight: {fileID: 1715094244}
         Mode: 0
-        Duration: 0.2
+        Duration: 1
         StartsOff: 0
         RelativeValues: 1
         ResetShakerValuesAfterShake: 1
@@ -24877,7 +24877,7 @@ MonoBehaviour:
         DebugActive: 0
         BoundLight: {fileID: 1892495263}
         Mode: 0
-        Duration: 0.2
+        Duration: 1
         StartsOff: 0
         RelativeValues: 1
         ResetShakerValuesAfterShake: 1
@@ -25163,7 +25163,7 @@ MonoBehaviour:
         DebugActive: 0
         BoundLight: {fileID: 1605810372}
         Mode: 0
-        Duration: 2
+        Duration: 1
         StartsOff: 0
         RelativeValues: 1
         ResetShakerValuesAfterShake: 1
