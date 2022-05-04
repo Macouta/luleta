@@ -40,6 +40,9 @@ public class InteractionManager : MonoBehaviour
     [BoxGroup("Invade")]
     public invadeManager invadeManager;
 
+    [BoxGroup("Audio")]
+    public AudioManager audioManager;
+
     [Space]
 
     public UnityEvent onPowerOn;
@@ -103,12 +106,16 @@ public class InteractionManager : MonoBehaviour
                 if (name == powerButton.name)
                     onPowerButtonClicked(hit.transform);
                 if (name == wheel.name)
+                {
                     WheelHold = true;
+                    audioManager.Play_wheel(true);
+                }
             }  
         }
 
         if(Input.GetMouseButtonUp(0)) {
             WheelHold = false;
+            audioManager.Play_wheel(false);
         }
 
         //Cooldown click
@@ -122,6 +129,7 @@ public class InteractionManager : MonoBehaviour
 
         if(wheelHold) {
             float mouseX = Input.GetAxis("Mouse X") * wheelRotSpeed * Time.deltaTime;
+            audioManager.SetWheelSpeed(Input.GetAxis("Mouse X"));
             wheel.transform.Rotate(new Vector3(0, mouseX, 0));
         }
     }
