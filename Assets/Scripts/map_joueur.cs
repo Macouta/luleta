@@ -14,6 +14,7 @@ public class map_joueur : MonoBehaviour
     private bool mouseHold;
 
     public bool MouseHold { get => mouseHold; set => mouseHold = value; }
+    public Astre Astre_actuel { get => astre_actuel; set => astre_actuel = value; }
 
     void Start()
     {
@@ -36,7 +37,7 @@ public class map_joueur : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
             AborderAstreActuel();
         if (Input.GetKeyDown(KeyCode.Z))
-            SauterHyperEspace();
+            SauterHyperEspace(1f);
 
         if (!enHyperEspace)
         {
@@ -75,11 +76,11 @@ public class map_joueur : MonoBehaviour
             astre_actuel.Aborder();
         }
     }
-    public void SauterHyperEspace()
+    public void SauterHyperEspace(float duration)
     {
         if (isJumpAllowed())
         {
-            IEnumerator coroutine = SautHyperEspaceAnimation(astre_vise);
+            IEnumerator coroutine = SautHyperEspaceAnimation(astre_vise, duration);
             StartCoroutine(coroutine);
         }
     }
@@ -87,7 +88,7 @@ public class map_joueur : MonoBehaviour
     public bool isJumpAllowed() {
         return astre_vise != null && !astre_vise.inaccessible && !enHyperEspace;
     }
-    IEnumerator SautHyperEspaceAnimation(Astre astre_destination)
+    IEnumerator SautHyperEspaceAnimation(Astre astre_destination, float duree)
     {
         //depart
         enHyperEspace = true;
@@ -101,7 +102,6 @@ public class map_joueur : MonoBehaviour
         }
 
         //deplacement
-        float duree = 1f;
         float temps_debut = Time.time;
         Vector3 delta_difference = transform.position - astre_destination.transform.position;
         Vector3 pos_debut = astre_manager.transform.position;

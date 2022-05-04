@@ -8,6 +8,8 @@ public class ResourceBar : MonoBehaviour
 {
 
     public MMProgressBar bar;
+    public Image icon;
+    public Sprite iconSprite;
     public Image led;
 
     [Range(0,1)]
@@ -16,6 +18,7 @@ public class ResourceBar : MonoBehaviour
     void Start()
     {
         bar.SetBar01(value);
+        icon.sprite = iconSprite;
     }
 
     // Update is called once per frame
