@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
+using Sirenix.OdinInspector;
+
 
 
 public enum ResourceType {
@@ -16,6 +18,12 @@ public class resourcesManager : MonoBehaviour
     public ResourceBar degats_bar;
     public ResourceBar energie_bar;
     public map_joueur player;
+
+    [BoxGroup("Resources lose over jump")]
+    [Range(0f, 0.5f)]
+    public float comestiblePerte, argentPerte, degatsPerte, energiePerte = 0.1f;
+
+
 
 
     public Color defaultLedColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
@@ -68,6 +76,13 @@ public class resourcesManager : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public void onJump() {
+        energie_bar.updateBar(-energiePerte);
+        comestible_bar.updateBar(-comestiblePerte);
+        degats_bar.updateBar(-Random.Range(0f ,degatsPerte));
+        argent_bar.updateBar(-argentPerte);
     }
 
     public void trade() {

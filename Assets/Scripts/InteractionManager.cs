@@ -135,6 +135,8 @@ public class InteractionManager : MonoBehaviour
             Debug.Log("INVADE");
             onInvadeStart.Invoke(invadeLeverAnimTime);
             // t.DORotate(t.eulerAngles - new Vector3(90f, 0, 0), invadeLeverAnimTime).SetEase(invadeLeverStartEasing);
+        } else {
+            invadeManager.invadeFailed.Invoke();
         }
     }
 

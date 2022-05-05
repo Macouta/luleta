@@ -4,10 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using Sirenix.OdinInspector;
+using TMPro;
 
 
 public class invadeManager : MonoBehaviour
 {
+    [BoxGroup("UI")]
+    public TextMeshProUGUI valueText;
     [BoxGroup("UI")]
     public Image reward_icon;
     [BoxGroup("UI")]
@@ -26,6 +29,7 @@ public class invadeManager : MonoBehaviour
     [BoxGroup("UI")]
     public Gradient difficultyRamp;
     
+    public GameObject attackBar;
     public map_joueur player;
     public float invadeTime = 2f;
     private Image[] blocDifficulty; 
@@ -36,6 +40,7 @@ public class invadeManager : MonoBehaviour
 
     private Astre current;
     private ResourceType currentReward;
+    private float currentRewardValue;
 
     private bool invadeInProgress = false;
     // Start is called before the first frame update
@@ -46,24 +51,22 @@ public class invadeManager : MonoBehaviour
     }
 
     public void onInvade(float duration) {
-        if(!invadeInProgress) {
-            invadeInProgress = true;
-            StartCoroutine(lightBlocsAnim(duration));
-            StartCoroutine(waitInvade());
-        } else {
-            invadeFailed.Invoke();
-        }
-        
+        invadeInProgress = true;
+        StartCoroutine(lightBlocsAnim(duration));
+        StartCoroutine(waitInvade());
     }
 
     public void onJumpEnd() {
         current = player.Astre_actuel;
+        invadeInProgress = false;
+        attackBar.SetActive(false);
         setReward(); 
         difficultyBloc(current.defense);
     }
 
     private void setReward() {
         currentReward = (ResourceType)Random.Range(0,3);
+        reward_icon.color = Color.white;
         switch(currentReward) {
             case ResourceType.Argent:
                 reward_icon.sprite = argent_icon;
@@ -78,10 +81,12 @@ public class invadeManager : MonoBehaviour
                 reward_icon.sprite = degat_icon;
                 break;
         }
+        currentRewardValue = calculateReward();
+        valueText.text = "+ " + currentRewardValue * 100f;
     }
 
     private float calculateReward() {
-        float reward = 50f;
+        float reward = 0.1f;
         return reward;
     }
 
@@ -115,11 +120,17 @@ public class invadeManager : MonoBehaviour
         
     }
 
+    private void onInvadeEnd() {
+        attackBar.SetActive(true);
+        valueText.text = "NaN";
+        invadeEnd.Invoke(currentReward, currentRewardValue);
+    }
+
     IEnumerator waitInvade() {
         yield return new WaitForSeconds(invadeTime);
-        invadeInProgress = false;
+        // invadeInProgress = false;
         Debug.Log("INVADE END");
-        invadeEnd.Invoke(currentReward, calculateReward());
+        onInvadeEnd();
     }
 
 }
