@@ -98,9 +98,12 @@ public class invadeManager : MonoBehaviour
     {
         float ratio = defense / 100f;
         float threshold = 0;
+        foreach(Image i in blocDifficulty) {
+            yield return new WaitForSeconds(duration/10f);
+            i.color = new Color(0.1490196f, 0.1490196f, 0.1490196f, 1f );
+        }
         for(int i = blocDifficulty.Length - 1; i >= 0; i--) {
-            blocDifficulty[i].color = Color.black;
-            yield return new WaitForSeconds(duration/5f);
+            yield return new WaitForSeconds(duration/10f);
             if(defense >= threshold)
                 blocDifficulty[i].color = difficultyRamp.Evaluate(1f - (float)i/(float)blocDifficulty.Length);
             threshold += 20;
@@ -122,14 +125,18 @@ public class invadeManager : MonoBehaviour
 
     private void onInvadeEnd() {
         attackBar.SetActive(true);
-        valueText.text = "NaN";
+        valueText.text = "Vide";
         invadeEnd.Invoke(currentReward, currentRewardValue);
     }
 
     IEnumerator waitInvade() {
-        yield return new WaitForSeconds(invadeTime);
+        // yield return new WaitForSeconds(invadeTime);
         // invadeInProgress = false;
         Debug.Log("INVADE END");
+        for(int i = blocInvade.Length - 1; i >= 0; i--) {
+            yield return new WaitForSeconds(invadeTime/5f);
+            blocInvade[i].color = new Color(0.1490196f, 0.1490196f, 0.1490196f, 1f );
+        }
         onInvadeEnd();
     }
 
