@@ -10,8 +10,10 @@ public class InteractionManager : MonoBehaviour
 {
     public static InteractionManager manager;
 
-    public float cooldownTimer = 1f;
-    private float cooldownTimerLeft;
+    public float jumpDuration = 1f;
+
+    public float cooldownClickTimer = 1f;
+    private float cooldownClickTimerLeft;
 
     [BoxGroup("OnButton")]
     public GameObject powerButton;
@@ -30,18 +32,26 @@ public class InteractionManager : MonoBehaviour
     [BoxGroup("Invade")]
     public GameObject invadeLever;
     [BoxGroup("Invade")]
-    public Ease invadeLeverEasing;
+    public Ease invadeLeverStartEasing;
+    [BoxGroup("Invade")]
+    public Ease invadeLeverFailedEasing;
     [BoxGroup("Invade")]
     public float invadeLeverAnimTime = 1f;
+    [BoxGroup("Invade")]
+    public invadeManager invadeManager;
+
+    [BoxGroup("Audio")]
+    public AudioManager audioManager;
 
     [Space]
 
     public UnityEvent onPowerOn;
     public UnityEvent onPowerOff;
     public UnityEvent onTrade;
-    public UnityEvent onInvade;
-    public UnityEvent onJump;
-    public UnityEvent onJumpFailed;
+    public UnityEvent<float> onInvadeStart;
+    public UnityEvent<float> onJumpStart;
+    public UnityEvent onJumpEnd;
+    public UnityEvent onJumpStartFailed;
 
 
     private bool wheelHold = false;
@@ -70,7 +80,7 @@ public class InteractionManager : MonoBehaviour
 
      void Start() {
          cameraRig = Camera.main.transform.parent.GetComponent<CameraRig>();
-         cooldownTimerLeft = cooldownTimer;
+         cooldownClickTimerLeft = cooldownClickTimer;
      }
 
     void Update()
@@ -92,29 +102,34 @@ public class InteractionManager : MonoBehaviour
                 if(name == invadeLever.name)
                     onInvadeLeverClicked(hit.transform);
                 if(name == jumpButton.name)
-                    onJumpButtonClicked(hit.transform);
+                    onJumpStartButtonClicked(hit.transform);
                 if (name == powerButton.name)
                     onPowerButtonClicked(hit.transform);
                 if (name == wheel.name)
+                {
                     WheelHold = true;
+                    audioManager.Play_wheel(true);
+                }
             }  
         }
 
         if(Input.GetMouseButtonUp(0)) {
             WheelHold = false;
+            audioManager.Play_wheel(false);
         }
 
         //Cooldown click
         if(clickCooldown) {
-            cooldownTimerLeft -= Time.deltaTime;
-            if(cooldownTimerLeft < 0) {
+            cooldownClickTimerLeft -= Time.deltaTime;
+            if(cooldownClickTimerLeft < 0) {
                 clickCooldown = false;
-                cooldownTimerLeft = cooldownTimer;
+                cooldownClickTimerLeft = cooldownClickTimer;
             }
         }
 
         if(wheelHold) {
             float mouseX = Input.GetAxis("Mouse X") * wheelRotSpeed * Time.deltaTime;
+            audioManager.SetWheelSpeed(Input.GetAxis("Mouse X"));
             wheel.transform.Rotate(new Vector3(0, mouseX, 0));
         }
     }
@@ -126,10 +141,14 @@ public class InteractionManager : MonoBehaviour
     }
 
     void onInvadeLeverClicked(Transform t) {
-        Debug.Log("INVADE");
-        t.DORotate(t.eulerAngles - new Vector3(90f, 0, 0), invadeLeverAnimTime).SetEase(invadeLeverEasing).SetLoops(2, LoopType.Yoyo).OnComplete(() => {
-            onInvade.Invoke();
-        });
+        if(!invadeManager.isInvadeInProgress()) {
+            Debug.Log("INVADE");
+            onInvadeStart.Invoke(invadeLeverAnimTime);
+            // t.DORotate(t.eulerAngles - new Vector3(90f, 0, 0), invadeLeverAnimTime).SetEase(invadeLeverStartEasing);
+        }
+    }
+
+    public void onInvadeEnd() {
     }
 
     void onPowerButtonClicked(Transform t){
@@ -146,14 +165,20 @@ public class InteractionManager : MonoBehaviour
         t.DOLocalMoveZ(t.localPosition.z - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
     }
 
-    void onJumpButtonClicked(Transform t){
+    void onJumpStartButtonClicked(Transform t){
         if(player.isJumpAllowed()) {
             Debug.Log("JUMP");
-            onJump.Invoke();
+            onJumpStart.Invoke(jumpDuration);
             t.DOLocalMoveZ(t.localPosition.x - 0.05f, 0.5f).SetLoops(2, LoopType.Yoyo);
+            StartCoroutine(jumpWait());
         } else {
-            onJumpFailed.Invoke();
+            onJumpStartFailed.Invoke();
         }
-        
+    }
+
+    IEnumerator jumpWait()
+    {
+        yield return new WaitForSeconds(jumpDuration + 0.05f);
+        onJumpEnd.Invoke();
     }
 }

@@ -10,7 +10,8 @@ public class resourcesManager : MonoBehaviour
     public ResourceBar argent_bar;
     public ResourceBar degats_bar;
     public ResourceBar energie_bar;
-    public Astre_manager astreManager;
+    public map_joueur player;
+
 
     public Color defaultLedColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     public Color upColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
@@ -26,10 +27,18 @@ public class resourcesManager : MonoBehaviour
     }
 
     public void updateAstreCourant() {
-        current = astreManager.getAstreCourant();
-        resetLedColor();
-        Debug.Log(current.type);
-        switch(current.type) {
+        current = player.Astre_actuel;
+        resetLedColor(current);
+        
+    }
+
+    public void resetLedColor(Astre a) {
+        comestible_bar.led.color = defaultLedColor;
+        argent_bar.led.color = defaultLedColor;
+        degats_bar.led.color = defaultLedColor;
+        energie_bar.led.color = defaultLedColor;
+
+        switch(a.type) {
             case "Planète tellurique":
                 comestible_bar.led.color = downColor;
                 argent_bar.led.color = upColor;
@@ -47,14 +56,9 @@ public class resourcesManager : MonoBehaviour
                 degats_bar.led.color = downColor;
                 energie_bar.led.color = upColor;
                 break;
+            default:
+                break;
         }
-    }
-
-    public void resetLedColor() {
-        comestible_bar.led.color = defaultLedColor;
-        argent_bar.led.color = defaultLedColor;
-        degats_bar.led.color = defaultLedColor;
-        energie_bar.led.color = defaultLedColor;
     }
 
     private void updateBar(ResourceBar up, ResourceBar down) {
@@ -68,7 +72,6 @@ public class resourcesManager : MonoBehaviour
     }
 
     public void trade() {
-        Debug.Log(current.type);
         switch(current.type) {
             case "Planète tellurique":
                 updateBar(argent_bar, comestible_bar);
@@ -84,5 +87,9 @@ public class resourcesManager : MonoBehaviour
                 updateBar(energie_bar, degats_bar);
                 break;
         }
+    }
+
+    public void onInvadeEnd() {
+
     }
 }

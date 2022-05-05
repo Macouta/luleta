@@ -43,6 +43,7 @@ public class Astre_manager : MonoBehaviour
 
     public void DefinirAstreActuel(int id)
     {
+        
         if (id == -1)//il n'y a pas d'astre actuel
         {
             EteindreAstreActuel();
