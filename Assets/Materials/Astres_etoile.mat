@@ -73,6 +73,7 @@ Material:
     - _AlphaToMask: 0
     - _AlphaToMaskInspectorValue: 0
     - _BlendMode: 0
+    - _Close: 1
     - _ConservativeDepthOffsetEnable: 0
     - _CullMode: 2
     - _CullModeForward: 2
@@ -124,5 +125,5 @@ Material:
     - _col_B: {r: 1, g: 0.36779118, b: 0.08962262, a: 0}
     - _col_C: {r: 0, g: 0.3750186, b: 1, a: 0}
     - _col_D: {r: 0, g: 0.7197337, b: 1, a: 0}
-    - _offset: {r: 4.94, g: 0, b: 0, a: 0}
+    - _offset: {r: 8.82, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
