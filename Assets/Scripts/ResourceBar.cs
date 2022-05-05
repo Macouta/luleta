@@ -11,19 +11,20 @@ public class ResourceBar : MonoBehaviour
     public Image icon;
     public Sprite iconSprite;
     public Image led;
+    public ResourceType type;
 
     [Range(0,1)]
-    public float value;
+    public float total;
     // Start is called before the first frame update
     void Start()
     {
-        bar.SetBar01(value);
+        bar.SetBar01(total);
         icon.sprite = iconSprite;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void updateBar(float value) {
+        total += value;
+        total = Mathf.Clamp(total, 0, 1);
+        bar.UpdateBar01(total);
     }
 }

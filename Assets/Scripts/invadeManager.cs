@@ -3,22 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 
 public class invadeManager : MonoBehaviour
 {
+    [BoxGroup("UI")]
+    public Image reward_icon;
+    [BoxGroup("UI")]
+    public Sprite degat_icon;
+    [BoxGroup("UI")]
+    public Sprite energie_icon;
+    [BoxGroup("UI")]
+    public Sprite comestible_icon;
+    [BoxGroup("UI")]
+    public Sprite argent_icon;
+    [Space]
+    [BoxGroup("UI")]
     public GameObject invadeBar;
+    [BoxGroup("UI")]
     public GameObject difficultyBar;
+    [BoxGroup("UI")]
     public Gradient difficultyRamp;
+    
     public map_joueur player;
     public float invadeTime = 2f;
     private Image[] blocDifficulty; 
     private Image[] blocInvade; 
 
     public UnityEvent invadeFailed;
-    public UnityEvent invadeEnd;
+    public UnityEvent<ResourceType, float> invadeEnd;
 
     private Astre current;
+    private ResourceType currentReward;
 
     private bool invadeInProgress = false;
     // Start is called before the first frame update
@@ -41,26 +58,35 @@ public class invadeManager : MonoBehaviour
 
     public void onJumpEnd() {
         current = player.Astre_actuel;
+        setReward(); 
         difficultyBloc(current.defense);
+    }
+
+    private void setReward() {
+        currentReward = (ResourceType)Random.Range(0,3);
+        switch(currentReward) {
+            case ResourceType.Argent:
+                reward_icon.sprite = argent_icon;
+                break;
+            case ResourceType.Comestible:
+                reward_icon.sprite = comestible_icon;
+                break;
+            case ResourceType.Energie:
+                reward_icon.sprite = energie_icon;
+                break;
+            case ResourceType.Degats:
+                reward_icon.sprite = degat_icon;
+                break;
+        }
+    }
+
+    private float calculateReward() {
+        float reward = 50f;
+        return reward;
     }
 
     private void difficultyBloc(int defense) {
         StartCoroutine(difficultyBlocsAnim(0.5f, defense));
-        float ratio = defense / 100f;
-        Debug.Log(ratio);
-        Debug.Log(defense);
-        // if(defense > 0) {
-        //     blocDifficulty[blocDifficulty.Length - 1].color = difficultyRamp.Evaluate(ratio);
-        //     if(defense > 20)
-        //         blocDifficulty[blocDifficulty.Length - 2].color = difficultyRamp.Evaluate(ratio);
-        //     if(defense > 40)
-        //         blocDifficulty[blocDifficulty.Length - 2].color = difficultyRamp.Evaluate(ratio);
-        //     if(defense > 60)
-        //         blocDifficulty[blocDifficulty.Length - 2].color = difficultyRamp.Evaluate(ratio);
-        //     if(defense > 80)
-        //         blocDifficulty[blocDifficulty.Length - 2].color = difficultyRamp.Evaluate(ratio);
-        // }
-        
     }
 
     IEnumerator difficultyBlocsAnim(float duration, float defense)
@@ -93,7 +119,7 @@ public class invadeManager : MonoBehaviour
         yield return new WaitForSeconds(invadeTime);
         invadeInProgress = false;
         Debug.Log("INVADE END");
-        invadeEnd.Invoke();
+        invadeEnd.Invoke(currentReward, calculateReward());
     }
 
 }

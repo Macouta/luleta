@@ -8,8 +8,6 @@ using Sirenix.OdinInspector;
 
 public class InteractionManager : MonoBehaviour
 {
-    public static InteractionManager manager;
-
     public float jumpDuration = 1f;
 
     public float cooldownClickTimer = 1f;
@@ -69,14 +67,6 @@ public class InteractionManager : MonoBehaviour
             player.MouseHold = value;
         }
     }
-
-    void Awake()
-     {
-         if (manager != null && manager != this)
-             Destroy(gameObject);
- 
-         manager = this;
-     }
 
      void Start() {
          cameraRig = Camera.main.transform.parent.GetComponent<CameraRig>();
