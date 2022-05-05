@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MoreMountains.Tools;
+using Sirenix.OdinInspector;
+
+
+
+public enum ResourceType {
+    Comestible, Argent, Degats, Energie 
+}
 
 public class resourcesManager : MonoBehaviour
 {
@@ -12,17 +19,27 @@ public class resourcesManager : MonoBehaviour
     public ResourceBar energie_bar;
     public map_joueur player;
 
+    [BoxGroup("Resources lose over jump")]
+    [Range(0f, 0.5f)]
+    public float comestiblePerte, argentPerte, degatsPerte, energiePerte = 0.1f;
+
+
+
 
     public Color defaultLedColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     public Color upColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
     public Color downColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
 
-    private float comestible, argent, degats, energie = 1f;
+    private Dictionary<ResourceType, ResourceBar> resources = new Dictionary<ResourceType, ResourceBar>();
 
     private Astre current;
     // Start is called before the first frame update
     void Start()
     {
+        resources.Add(energie_bar.type, energie_bar);
+        resources.Add(degats_bar.type, degats_bar);
+        resources.Add(argent_bar.type, argent_bar);
+        resources.Add(comestible_bar.type, comestible_bar);
         // updateAstreCourant();
     }
 
@@ -61,35 +78,37 @@ public class resourcesManager : MonoBehaviour
         }
     }
 
-    private void updateBar(ResourceBar up, ResourceBar down) {
-
-        up.value += 0.1f;
-        up.value = Mathf.Clamp(up.value, 0, 1);
-        down.value -= 0.1f;
-        down.value = Mathf.Clamp(down .value, 0, 1);
-        up.bar.UpdateBar01(up.value);
-        down.bar.UpdateBar01(down.value);
+    public void onJump() {
+        energie_bar.updateBar(-energiePerte);
+        comestible_bar.updateBar(-comestiblePerte);
+        degats_bar.updateBar(-Random.Range(0f ,degatsPerte));
+        argent_bar.updateBar(-argentPerte);
     }
 
     public void trade() {
         switch(current.type) {
             case "Planète tellurique":
-                updateBar(argent_bar, comestible_bar);
+                argent_bar.updateBar(0.1f);
+                comestible_bar.updateBar(-0.1f);
                 break;
             case "Planète gazeuse":
-                updateBar(comestible_bar, energie_bar);
+                comestible_bar.updateBar(0.1f);
+                energie_bar.updateBar(-0.1f);
                 break;
             case "Satellite":
             case "Comète":
-                updateBar(degats_bar, argent_bar);
+                degats_bar.updateBar(0.1f);
+                argent_bar.updateBar(-0.1f);
                 break;
             case "Étoile":
-                updateBar(energie_bar, degats_bar);
+                energie_bar.updateBar(0.1f);
+                degats_bar.updateBar(-0.1f);
                 break;
         }
     }
 
-    public void onInvadeEnd() {
-
+    public void onInvadeEnd(ResourceType res, float value) {
+        Debug.Log(res);
+        resources[res].updateBar(value);
     }
 }

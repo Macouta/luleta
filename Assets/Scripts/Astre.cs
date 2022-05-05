@@ -13,11 +13,11 @@ public class Astre : MonoBehaviour
     public int periode_rotation, periode_revolution, diametre, population, defense;
     private Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>()
     {   // type, rotation_max, revolution_max, diametre_max, population_max
-        {"Planète tellurique", new(){1500, 1500000, 50000, 1000000000}},
-        {"Planète gazeuse",    new(){1500, 1500000, 50000, 1000000000}},
+        {"Planï¿½te tellurique", new(){1500, 1500000, 50000, 1000000000}},
+        {"Planï¿½te gazeuse",    new(){1500, 1500000, 50000, 1000000000}},
         {"Satellite",          new(){300, 300000, 10000, 10000}},
-        {"Comète",             new(){300, 300000, 1000, 2500}},
-        {"Étoile",             new(){300000, 0, 100000, 0}},
+        {"Comï¿½te",             new(){300, 300000, 1000, 2500}},
+        {"ï¿½toile",             new(){300000, 0, 100000, 0}},
     };
     // relation
     public bool inaccessible = false;
@@ -104,11 +104,11 @@ public class Astre : MonoBehaviour
 
     private void AppliquerSprite()
     {
-        if (type == "Planète tellurique") //"Planète tellurique"
+        if (type == "Planï¿½te tellurique") //"Planï¿½te tellurique"
         {
            image.sprite = sprite_tellurique;
         }
-        else if (type == "Planète gazeuse") //"Planète gazeuse"
+        else if (type == "Planï¿½te gazeuse") //"Planï¿½te gazeuse"
         {
             image.sprite = sprite_gazeuse;
         }
@@ -116,11 +116,11 @@ public class Astre : MonoBehaviour
         {
             image.sprite = sprite_satellite;
         }
-        else if (type == "Comète") //"Comète"
+        else if (type == "Comï¿½te") //"Comï¿½te"
         {
             image.sprite = sprite_comete;
         }
-        else if (type == "Étoile") //"Étoile"
+        else if (type == "ï¿½toile") //"ï¿½toile"
         {
             image.sprite = sprite_etoile;
         }
@@ -148,7 +148,7 @@ public class Astre : MonoBehaviour
         return HarmonicColors;
     }
 
-    //TODO Améliorer l'harmonie des couleurs, éviter certaines ? (violet)
+    //TODO Amï¿½liorer l'harmonie des couleurs, ï¿½viter certaines ? (violet)
 
     public void Selectionner()
     {
@@ -176,9 +176,9 @@ public class Astre : MonoBehaviour
     public void Aborder()
     {
         inaccessible = true;
-        col_defaut = Color.black;
+        col_defaut = new Color(0.2f, 0.2f, 0.2f);
         col_selection = Color.red;
         image.color = col_defaut;
-        astre_manager.DefinirAstreActuel(id); //mettre à jour les infos de description
+        astre_manager.DefinirAstreActuel(id); //mettre ï¿½ jour les infos de description
     }
 }
