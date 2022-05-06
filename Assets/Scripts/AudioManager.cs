@@ -5,60 +5,101 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     //variables
-    public AudioSource powerOn, powerOff, spaceJump, ambiance, failed, invade, trade, wheel;
-    
+    public AudioSource sourceAlarm, sourceAmbiance, sourceInteraction, sourceWheel;
+    public AudioClip alarm, ambianceReality, ambianceFantasy, ambianceInvade, failed, gameover, invade, powerOn, powerOff, spaceJump, trade, wheel;
+
     //PUBLIC
-    public void Play_powerOn()
+    public void Play_alarm()
     {
-        powerOn.Play();
+        sourceAlarm.Play();
     }
-    public void Play_powerOff()
+    public void Stop_alarm()
     {
-        powerOff.Play();
+        sourceAlarm.Stop();
     }
-    public void Play_spaceJump()
+    public void Play_ambianceReality()
     {
-        spaceJump.Play();
+        AudioFadeOut(sourceAmbiance, 0.5f);
+        sourceAmbiance.clip = ambianceReality;
+        sourceAmbiance.Play();
     }
     public void Play_ambianceFantasy()
     {
-        ambiance.Play();
+        AudioFadeOut(sourceAmbiance, 0.5f);
+        sourceAmbiance.clip = ambianceFantasy;
+        sourceAmbiance.Play();
     }
-    public void Play_ambianceReal()
+    public void Play_ambianceInvade()
     {
-        ambiance.Stop();
+        AudioFadeOut(sourceAmbiance, 0.5f);
+        sourceAmbiance.clip = ambianceInvade;
+        sourceAmbiance.Play();
     }
     public void Play_failed()
     {
-        failed.Play();
+        sourceInteraction.clip = failed;
+        sourceInteraction.Play();
+    }
+    public void Play_gameOver()
+    {
+        sourceInteraction.clip = gameover;
+        sourceInteraction.Play();
     }
     public void Play_invade()
     {
-        invade.Play();
+        sourceInteraction.clip = invade;
+        sourceInteraction.Play();
+    }
+    public void Play_powerOn()
+    {
+        sourceInteraction.clip = powerOn;
+        sourceInteraction.Play();
+    }
+    public void Play_powerOff()
+    {
+        sourceInteraction.clip = powerOff;
+        sourceInteraction.Play();
+    }
+    public void Play_spaceJump()
+    {
+        sourceInteraction.clip = spaceJump;
+        sourceInteraction.Play();
     }
     public void Play_trade()
     {
-        trade.Play();
+        sourceInteraction.clip = trade;
+        sourceInteraction.Play();
     }
     public void Play_wheel(bool on)
     {
         if (on)
-            wheel.UnPause();
+            sourceWheel.UnPause();
         else
-            wheel.Pause();
+            sourceWheel.Pause();
     }
     public void SetWheelSpeed(float speed)
     {
         float aspeed = Mathf.Abs(speed);
-        wheel.volume = Mathf.Clamp(aspeed, 0f, 2f);
-        wheel.pitch = Mathf.Clamp(aspeed, 1f, 3f);
+        sourceWheel.volume = Mathf.Clamp(aspeed, 0f, 2f);
+        sourceWheel.pitch = Mathf.Clamp(aspeed, 1f, 3f);
     }
 
     //PRIVATE
     void Start()
     {
-        wheel.Play();
-        wheel.Pause();
+        //configuration audio source
+        sourceAlarm.clip = alarm;
+        sourceAlarm.loop = true;
+
+        sourceAmbiance.loop = true;
+        Play_ambianceReality();
+
+        sourceInteraction.loop = false;
+
+        sourceWheel.clip = wheel;
+        sourceWheel.loop = true;
+        sourceWheel.Play();
+        sourceWheel.Pause();
     }
 
     void Update()
@@ -66,5 +107,22 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    private void AudioFadeOut (AudioSource source, float delay)
+    {
+        IEnumerator coroutine = FadingOut(source, delay);
+        StartCoroutine(coroutine);
+    }
+
+    private IEnumerator FadingOut(AudioSource source, float delay)
+    {
+        float fac = 1f / delay;
+        while(delay >= 0f)
+        {
+            source.volume -= fac * Time.deltaTime;
+            delay -= Time.deltaTime;
+
+            yield return null;
+        }
+    }
 
 }
