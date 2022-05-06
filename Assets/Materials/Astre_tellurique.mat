@@ -96,7 +96,7 @@ Material:
     - _DstBlend: 0
     - _EnableBlendModePreserveSpecularLighting: 1
     - _EnableFogOnTransparent: 1
-    - _Float1: 2.22
+    - _Float1: 2.63
     - _OpaqueCullMode: 2
     - _RayTracing: 0
     - _ReceivesSSR: 1
@@ -129,8 +129,9 @@ Material:
     - _ZTestGBuffer: 4
     - _ZTestTransparent: 4
     - _ZWrite: 1
+    - _emission: 1
     - _float1: -7.12
-    - _float2: 0.08
+    - _float2: -0.16
     - _power: 0
     - _scale: 0.51
     m_Colors:

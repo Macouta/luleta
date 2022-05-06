@@ -13,11 +13,11 @@ public class Astre : MonoBehaviour
     public int periode_rotation, periode_revolution, diametre, population, defense;
     private Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>()
     {   // type, rotation_max, revolution_max, diametre_max, population_max
-        {"Plan�te tellurique", new(){1500, 1500000, 50000, 1000000000}},
-        {"Plan�te gazeuse",    new(){1500, 1500000, 50000, 1000000000}},
+        {"Planete tellurique", new(){1500, 1500000, 50000, 1000000000}},
+        {"Planete gazeuse",    new(){1500, 1500000, 50000, 1000000000}},
         {"Satellite",          new(){300, 300000, 10000, 10000}},
-        {"Com�te",             new(){300, 300000, 1000, 2500}},
-        {"�toile",             new(){300000, 0, 100000, 0}},
+        {"Comete",             new(){300, 300000, 1000, 2500}},
+        {"Etoile",             new(){300000, 0, 100000, 0}},
     };
     // relation
     public bool inaccessible = false;
@@ -52,7 +52,7 @@ public class Astre : MonoBehaviour
         diametre = Random.Range(500, astre_data[type][2]); //km
         population = Random.Range(0, astre_data[type][3]); //nb d'habitants ou d'ennemis
         defense = (int)(Mathf.Clamp01((Random.Range(1f, 5f) * (float)population / 1000000000f)) * 100f);
-        vitesse_rot = 5f * 360f / periode_rotation;
+        vitesse_rot = 50f * 360f / periode_rotation;
 
         //Mat variables
         scale = Random.Range(0f, 1f);
@@ -104,11 +104,11 @@ public class Astre : MonoBehaviour
 
     private void AppliquerSprite()
     {
-        if (type == "Plan�te tellurique") //"Plan�te tellurique"
+        if (type == "Planete tellurique") //"Plan�te tellurique"
         {
            image.sprite = sprite_tellurique;
         }
-        else if (type == "Plan�te gazeuse") //"Plan�te gazeuse"
+        else if (type == "Planete gazeuse") //"Plan�te gazeuse"
         {
             image.sprite = sprite_gazeuse;
         }
@@ -116,11 +116,11 @@ public class Astre : MonoBehaviour
         {
             image.sprite = sprite_satellite;
         }
-        else if (type == "Com�te") //"Com�te"
+        else if (type == "Comete") //"Com�te"
         {
             image.sprite = sprite_comete;
         }
-        else if (type == "�toile") //"�toile"
+        else if (type == "Etoile") //"�toile"
         {
             image.sprite = sprite_etoile;
         }

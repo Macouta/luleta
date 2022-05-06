@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Moniteur_MatCtrl : MonoBehaviour
 {
-    private float speed = 3f;
+    private float speed = 1f;
     public Renderer ren;
     private IEnumerator coroutine;
 

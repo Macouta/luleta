@@ -45,11 +45,11 @@ public class Astre_affichage : MonoBehaviour
     private void ChangerMat()
     {
         //Mat
-        if (astre.type == "Planète tellurique") //"Planète tellurique"
+        if (astre.type == "Planete tellurique") //"Planète tellurique"
         {
             ren.material = mat_tellurique;
         }
-        else if (astre.type == "Planète gazeuse") //"Planète gazeuse"
+        else if (astre.type == "Planete gazeuse") //"Planète gazeuse"
         {
             ren.material = mat_gazeux;
         }
@@ -57,11 +57,11 @@ public class Astre_affichage : MonoBehaviour
         {
             ren.material = mat_satellite;
         }
-        else if (astre.type == "Comète") //"Comète"
+        else if (astre.type == "Comete") //"Comète"
         {
             ren.material = mat_comete;
         }
-        else if (astre.type == "Étoile") //"Étoile"
+        else if (astre.type == "Etoile") //"Étoile"
         {
             ren.material = mat_etoile;
         }
