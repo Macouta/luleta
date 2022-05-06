@@ -86,19 +86,24 @@ public class InteractionManager : MonoBehaviour
                 if(hit.transform.tag == "Interactible") {
                     clickCooldown = true;
                 }
-                // Debug.Log("hit : " + hit.transform.name);
-                if(name == tradeButton.name)
-                    onTradeButtonClicked(hit.transform);
-                if(name == invadeLever.name)
-                    onInvadeLeverClicked(hit.transform);
-                if(name == jumpButton.name)
-                    onJumpStartButtonClicked(hit.transform);
+
                 if (name == powerButton.name)
                     onPowerButtonClicked(hit.transform);
-                if (name == wheel.name)
-                {
-                    WheelHold = true;
-                    audioManager.Play_wheel(true);
+
+                if(poweredOn) {
+                    // Debug.Log("hit : " + hit.transform.name);
+                    if(name == tradeButton.name)
+                        onTradeButtonClicked(hit.transform);
+                    if(name == invadeLever.name)
+                        onInvadeLeverClicked(hit.transform);
+                    if(name == jumpButton.name)
+                        onJumpStartButtonClicked(hit.transform);
+                    
+                    if (name == wheel.name)
+                    {
+                        WheelHold = true;
+                        audioManager.Play_wheel(true);
+                    }
                 }
             }  
         }
