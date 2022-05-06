@@ -24,6 +24,9 @@ public class ResourceBar : MonoBehaviour
 
     public void updateBar(float value) {
         total += value;
+
+        // ICI MEME A LA LIMITE
+        
         total = Mathf.Clamp(total, 0, 1);
         bar.UpdateBar01(total);
     }

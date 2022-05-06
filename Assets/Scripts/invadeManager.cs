@@ -66,6 +66,8 @@ public class invadeManager : MonoBehaviour
 
     private void setReward() {
         currentReward = (ResourceType)Random.Range(0,3);
+
+        
         reward_icon.color = Color.white;
         switch(currentReward) {
             case ResourceType.Argent:

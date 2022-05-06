@@ -7,7 +7,7 @@ using Sirenix.OdinInspector;
 
 
 public enum ResourceType {
-    Comestible, Argent, Degats, Energie 
+    Comestible, Argent, Degats, Energie //0, 1, 2, 3
 }
 
 public class resourcesManager : MonoBehaviour
