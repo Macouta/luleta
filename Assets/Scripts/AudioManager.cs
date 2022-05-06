@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 public class AudioManager : MonoBehaviour
 {
     //variables
+    [BoxGroup("Audio Srouces")]
     public AudioSource sourceAlarm, sourceAmbiance, sourceInteraction, sourceWheel;
-    public AudioClip alarm, ambianceReality, ambianceFantasy, ambianceInvade, failed, gameover, invade, powerOn, powerOff, spaceJump, trade, wheel;
+    [BoxGroup("Audio Clips")]
+    public AudioClip alarm, ambianceReality, ambianceFantasy, failed, gameover, invade, powerOn, powerOff, spaceJump, trade, wheel;
 
     //PUBLIC
     public void Play_alarm()
@@ -19,21 +22,11 @@ public class AudioManager : MonoBehaviour
     }
     public void Play_ambianceReality()
     {
-        AudioFadeOut(sourceAmbiance, 0.5f);
-        sourceAmbiance.clip = ambianceReality;
-        sourceAmbiance.Play();
+        AudioFade(sourceAmbiance, ambianceReality);
     }
     public void Play_ambianceFantasy()
     {
-        AudioFadeOut(sourceAmbiance, 0.5f);
-        sourceAmbiance.clip = ambianceFantasy;
-        sourceAmbiance.Play();
-    }
-    public void Play_ambianceInvade()
-    {
-        AudioFadeOut(sourceAmbiance, 0.5f);
-        sourceAmbiance.clip = ambianceInvade;
-        sourceAmbiance.Play();
+        AudioFade(sourceAmbiance, ambianceFantasy);
     }
     public void Play_failed()
     {
@@ -92,7 +85,8 @@ public class AudioManager : MonoBehaviour
         sourceAlarm.loop = true;
 
         sourceAmbiance.loop = true;
-        Play_ambianceReality();
+        sourceAmbiance.clip = ambianceReality;
+        sourceAmbiance.Play();
 
         sourceInteraction.loop = false;
 
@@ -107,14 +101,16 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    private void AudioFadeOut (AudioSource source, float delay)
+    private void AudioFade(AudioSource source, AudioClip newClip)
     {
-        IEnumerator coroutine = FadingOut(source, delay);
+        IEnumerator coroutine = Fading(source, newClip);
         StartCoroutine(coroutine);
     }
 
-    private IEnumerator FadingOut(AudioSource source, float delay)
+    private IEnumerator Fading(AudioSource source, AudioClip newClip)
     {
+        //fade out
+        float delay = 0.5f;
         float fac = 1f / delay;
         while(delay >= 0f)
         {
@@ -123,6 +119,9 @@ public class AudioManager : MonoBehaviour
 
             yield return null;
         }
+        //nouveau clip
+        source.volume = 1f;
+        source.clip = newClip;
+        source.Play();
     }
-
 }
