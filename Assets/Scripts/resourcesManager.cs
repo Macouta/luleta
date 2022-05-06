@@ -88,6 +88,7 @@ public class resourcesManager : MonoBehaviour
     }
 
     public void trade() {
+
         Debug.Log(current.type);
         switch(current.type) {
             case "Plan�te tellurique":

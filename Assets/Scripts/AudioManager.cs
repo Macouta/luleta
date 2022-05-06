@@ -9,7 +9,7 @@ public class AudioManager : MonoBehaviour
     [BoxGroup("Audio Srouces")]
     public AudioSource sourceAlarm, sourceAmbiance, sourceInteraction, sourceWheel;
     [BoxGroup("Audio Clips")]
-    public AudioClip alarm, ambianceReality, ambianceFantasy, failed, gameover, invade, powerOn, powerOff, spaceJump, trade, wheel;
+    public AudioClip alarm, ambianceReality, ambianceFantasy, failed, gameover, invade, powerOn, powerOff, spaceJump, trade, wheel, click;
 
     //PUBLIC
     public void Play_alarm()
@@ -43,6 +43,12 @@ public class AudioManager : MonoBehaviour
         sourceInteraction.clip = invade;
         sourceInteraction.Play();
     }
+
+    public void Play_invadeEnd() {
+        sourceInteraction.clip = click;
+        sourceInteraction.Play();
+    }
+
     public void Play_powerOn()
     {
         sourceInteraction.clip = powerOn;

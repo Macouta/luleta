@@ -18,6 +18,8 @@ namespace SplineMesh {
         private Spline spline;
         private float rate = 0;
 
+        public bool invert = false;
+
         public GameObject Follower;
         public float DurationInSecond;
 
@@ -29,30 +31,35 @@ namespace SplineMesh {
             generated.name = generatedName;
 
             spline = GetComponent<Spline>(); 
-#if UNITY_EDITOR
-            EditorApplication.update += EditorUpdate;
-#endif
         }
 
-        void OnDisable() {
-#if UNITY_EDITOR
-            EditorApplication.update -= EditorUpdate;
-#endif
-        }
-
-        void EditorUpdate() {
-            rate += Time.deltaTime / DurationInSecond;
-            if (rate > spline.nodes.Count - 1) {
-                rate -= spline.nodes.Count - 1;
+        public void Follow(float duration) {
+            if(invert) {
+                StartCoroutine(PlaceFollowerInvert(duration));
+            } else {
+                StartCoroutine(PlaceFollower(duration));
             }
-            PlaceFollower();
         }
 
-        private void PlaceFollower() {
-            if (generated != null) {
-                CurveSample sample = spline.GetSample(rate);
+        IEnumerator PlaceFollower(float duration) {
+            float normalizedTime = spline.nodes.Count - 1 ;
+            while( normalizedTime >= 0) {
+                CurveSample sample = spline.GetSample(normalizedTime);
                 generated.transform.localPosition = sample.location;
                 generated.transform.localRotation = sample.Rotation;
+                normalizedTime -= Time.deltaTime / duration;
+                yield return null;
+            }
+        }
+
+        IEnumerator PlaceFollowerInvert(float duration) {
+            float normalizedTime = 0 ;
+            while( normalizedTime <= spline.nodes.Count - 1) {
+                CurveSample sample = spline.GetSample(normalizedTime);
+                generated.transform.localPosition = sample.location;
+                generated.transform.localRotation = sample.Rotation;
+                normalizedTime += Time.deltaTime / duration;
+                yield return null;
             }
         }
     }
