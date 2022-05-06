@@ -8,7 +8,7 @@ using Sirenix.OdinInspector;
 
 public class InteractionManager : MonoBehaviour
 {
-    public float jumpDuration = 1f;
+    public float jumpDuration = 3f;
 
     public float cooldownClickTimer = 1f;
     private float cooldownClickTimerLeft;
@@ -46,6 +46,7 @@ public class InteractionManager : MonoBehaviour
     public UnityEvent onPowerOn;
     public UnityEvent onPowerOff;
     public UnityEvent onTrade;
+    public UnityEvent onTradeFailed;
     public UnityEvent<float> onInvadeStart;
     public UnityEvent<float> onJumpStart;
     public UnityEvent onJumpEnd;
@@ -130,9 +131,13 @@ public class InteractionManager : MonoBehaviour
     }
 
     void onTradeButtonClicked(Transform t) {
-        Debug.Log("TRADE");
-        onTrade.Invoke();
-        t.DOLocalMoveZ(t.localPosition.z - 0.02f, 0.4f).SetLoops(2, LoopType.Yoyo);
+        if(player.Astre_actuel) {
+            Debug.Log("TRADE");
+            onTrade.Invoke();
+            t.DOLocalMoveZ(t.localPosition.z - 0.03f, 0.4f).SetLoops(2, LoopType.Yoyo);
+        } else {
+            onTradeFailed.Invoke();
+        }
     }
 
     void onInvadeLeverClicked(Transform t) {

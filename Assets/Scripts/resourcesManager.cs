@@ -88,8 +88,6 @@ public class resourcesManager : MonoBehaviour
     }
 
     public void trade() {
-
-        Debug.Log(current.type);
         switch(current.type) {
             case "Plan�te tellurique":
                 argent_bar.updateBar(0.1f);

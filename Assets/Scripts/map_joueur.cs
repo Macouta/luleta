@@ -90,6 +90,8 @@ public class map_joueur : MonoBehaviour
     }
     IEnumerator SautHyperEspaceAnimation(Astre astre_destination, float duree)
     {
+
+        Debug.Log("duree " + duree);
         //depart
         enHyperEspace = true;
         if (astre_actuel == null)
@@ -102,17 +104,17 @@ public class map_joueur : MonoBehaviour
         }
 
         //deplacement
-        float temps_debut = Time.time;
         Vector3 delta_difference = transform.position - astre_destination.transform.position;
         Vector3 pos_debut = astre_manager.transform.position;
         Vector3 pos_arrivee = pos_debut + delta_difference;
-        while (Time.time < temps_debut + duree)
-        {
+        float normalizedTime = 0;
+        while( normalizedTime <= 1f) {
             astre_manager.transform.position = new Vector3(
-                                            Mathf.SmoothStep(pos_debut.x, pos_arrivee.x, (Time.time - temps_debut)),
-                                            Mathf.SmoothStep(pos_debut.y, pos_arrivee.y, (Time.time - temps_debut)),
-                                            Mathf.SmoothStep(pos_debut.z, pos_arrivee.z, (Time.time - temps_debut))
+                                            Mathf.SmoothStep(pos_debut.x, pos_arrivee.x, normalizedTime),
+                                            Mathf.SmoothStep(pos_debut.y, pos_arrivee.y, normalizedTime),
+                                            Mathf.SmoothStep(pos_debut.z, pos_arrivee.z, normalizedTime)
                                             );
+            normalizedTime += Time.deltaTime / duree;
             yield return null;
         }
 
