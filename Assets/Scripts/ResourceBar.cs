@@ -30,6 +30,7 @@ public class ResourceBar : MonoBehaviour
 
     public void updateBar(float value) {
         total += value;
+        Debug.Log(type.ToString() + " " + value);
 
         // ICI MEME A LA LIMITE
         

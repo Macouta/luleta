@@ -58,20 +58,20 @@ public class resourcesManager : MonoBehaviour
         energie_bar.led.color = defaultLedColor;
 
         switch(a.type) {
-            case "Planète tellurique":
+            case "Plan�te tellurique":
                 comestible_bar.led.color = downColor;
                 argent_bar.led.color = upColor;
                 break;
-            case "Planète gazeuse":
+            case "Plan�te gazeuse":
                 energie_bar.led.color = downColor;
                 comestible_bar.led.color = upColor;
                 break;
             case "Satellite":
-            case "Comète":
+            case "Com�te":
                 argent_bar.led.color = downColor;
                 degats_bar.led.color = upColor;
                 break;
-            case "Étoile":
+            case "�toile":
                 degats_bar.led.color = downColor;
                 energie_bar.led.color = upColor;
                 break;
@@ -88,24 +88,25 @@ public class resourcesManager : MonoBehaviour
     }
 
     public void trade() {
+        Debug.Log(current.type);
         switch(current.type) {
-            case "Planète tellurique":
+            case "Plan�te tellurique":
                 argent_bar.updateBar(0.1f);
                 comestible_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { argent_bar, comestible_bar });
                 break;
-            case "Planète gazeuse":
+            case "Plan�te gazeuse":
                 comestible_bar.updateBar(0.1f);
                 energie_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { comestible_bar, energie_bar });
                 break;
             case "Satellite":
-            case "Comète":
+            case "Com�te":
                 degats_bar.updateBar(0.1f);
                 argent_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { degats_bar, argent_bar });
                 break;
-            case "Étoile":
+            case "�toile":
                 energie_bar.updateBar(0.1f);
                 degats_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { energie_bar, degats_bar });
