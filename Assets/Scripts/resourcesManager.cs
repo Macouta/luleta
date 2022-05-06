@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using MoreMountains.Tools;
 using Sirenix.OdinInspector;
 
@@ -12,7 +13,6 @@ public enum ResourceType {
 
 public class resourcesManager : MonoBehaviour
 {
-
     public ResourceBar comestible_bar;
     public ResourceBar argent_bar;
     public ResourceBar degats_bar;
@@ -23,12 +23,14 @@ public class resourcesManager : MonoBehaviour
     [Range(0f, 0.5f)]
     public float comestiblePerte, argentPerte, degatsPerte, energiePerte = 0.1f;
 
-
-
-
     public Color defaultLedColor = new Color(0.5f, 0.5f, 0.5f, 1.0f);
     public Color upColor = new Color(0.0f, 1.0f, 0.0f, 1.0f);
     public Color downColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+
+    [Space]
+    public UnityEvent onRessourceNone;
+    public UnityEvent onRessourceDanger;
+    public UnityEvent onRessourceSafe;
 
     private Dictionary<ResourceType, ResourceBar> resources = new Dictionary<ResourceType, ResourceBar>();
 
@@ -90,21 +92,42 @@ public class resourcesManager : MonoBehaviour
             case "Planète tellurique":
                 argent_bar.updateBar(0.1f);
                 comestible_bar.updateBar(-0.1f);
+                checkStatus(new List<ResourceBar>() { argent_bar, comestible_bar });
                 break;
             case "Planète gazeuse":
                 comestible_bar.updateBar(0.1f);
                 energie_bar.updateBar(-0.1f);
+                checkStatus(new List<ResourceBar>() { comestible_bar, energie_bar });
                 break;
             case "Satellite":
             case "Comète":
                 degats_bar.updateBar(0.1f);
                 argent_bar.updateBar(-0.1f);
+                checkStatus(new List<ResourceBar>() { degats_bar, argent_bar });
                 break;
             case "Étoile":
                 energie_bar.updateBar(0.1f);
                 degats_bar.updateBar(-0.1f);
+                checkStatus(new List<ResourceBar>() { energie_bar, degats_bar });
                 break;
         }
+    }
+
+    private void checkStatus(List<ResourceBar> resourcesToCheck)
+    {
+        // get lowest status 
+        Status lowestStatus = Status.High;
+        for(int i = 0; i < resourcesToCheck.Count; i++){
+            if (resourcesToCheck[i].status < lowestStatus)
+                lowestStatus = resourcesToCheck[i].status;
+        }
+        // invoke events
+        if (lowestStatus == Status.None)
+            onRessourceNone.Invoke();
+        else if (lowestStatus == Status.Low)
+            onRessourceDanger.Invoke();
+        else
+            onRessourceSafe.Invoke();
     }
 
     public void onInvadeEnd(ResourceType res, float value) {

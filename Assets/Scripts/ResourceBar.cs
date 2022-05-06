@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Tools;
 
+public enum Status
+{
+    None, Low, Medium, High
+}
+
 public class ResourceBar : MonoBehaviour
 {
 
@@ -12,6 +17,7 @@ public class ResourceBar : MonoBehaviour
     public Sprite iconSprite;
     public Image led;
     public ResourceType type;
+    public Status status;
 
     [Range(0,1)]
     public float total;
@@ -26,5 +32,18 @@ public class ResourceBar : MonoBehaviour
         total += value;
         total = Mathf.Clamp(total, 0, 1);
         bar.UpdateBar01(total);
+        SetStatus();
+    }
+
+    private void SetStatus()
+    {
+        if (total <= 0f)
+            status = Status.None;
+        else if (total <= 0.2f)
+            status = Status.Low;
+        else if (total <= 0.7f)
+            status = Status.Medium;
+        else
+            status = Status.High;
     }
 }
