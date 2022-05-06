@@ -26,7 +26,7 @@ public class Astre_description : MonoBehaviour
                     "NOM: " + astre.nom
          + "\r\n" + "TYPE: " + astre.type
          + "\r\n" + "POPULATION: " + astre.population.ToString() + " individus"
-         + "\r\n" + "DEFENCE: " + astre.defense.ToString()
+         + "\r\n" + "DEFENSE: " + astre.defense.ToString()
          + "\r\n" + "DIAMETRE: " + astre.diametre.ToString() + " km"
          + "\r\n" + "ROTATION: " + astre.periode_rotation.ToString() + " h"
          + "\r\n" + "REVOLUTION: " + astre.periode_revolution.ToString() + " h"
