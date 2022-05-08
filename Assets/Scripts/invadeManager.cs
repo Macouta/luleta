@@ -125,10 +125,30 @@ public class invadeManager : MonoBehaviour
         
     }
 
+    IEnumerator lightDifficultyEndAnim(float success, float duration)
+    {
+       for(int i = blocDifficulty.Length - 1; i >= 0; i--) {
+            blocDifficulty[i].color = difficultyRamp.Evaluate(success);
+            yield return new WaitForSeconds(duration/4f);
+        }
+        
+    }
+
     private void onInvadeEnd() {
         attackBar.SetActive(true);
+        reward_icon.sprite = null;
+        reward_icon.color = Color.black;
         valueText.text = "Vide";
-        invadeEnd.Invoke(currentReward, currentRewardValue);
+
+        float succes = Random.Range(0, 100);
+        float defense = current.defense > 80 ? 80 : current.defense;
+        Debug.Log(succes + " " + defense);
+        if( succes > current.defense) {
+            invadeEnd.Invoke(currentReward, currentRewardValue);
+        } else {
+            invadeFailed.Invoke();
+        }
+        StartCoroutine(lightDifficultyEndAnim(0.9f, 1f));
     }
 
     IEnumerator waitInvade() {

@@ -189,7 +189,7 @@ public class Astre : MonoBehaviour
     public void Aborder()
     {
         inaccessible = true;
-        col_defaut = new Color(0.2f, 0.2f, 0.2f);
+        col_defaut = new Color(0.3f, 0.3f, 0.3f);
         col_selection = Color.red;
         image.color = col_defaut;
         astre_manager.DefinirAstreActuel(id); //mettre � jour les infos de description

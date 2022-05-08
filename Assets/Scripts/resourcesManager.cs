@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using MoreMountains.Tools;
 using Sirenix.OdinInspector;
+using MoreMountains.Feedbacks;
 
 
 
@@ -35,6 +36,8 @@ public class resourcesManager : MonoBehaviour
     private Dictionary<ResourceType, ResourceBar> resources = new Dictionary<ResourceType, ResourceBar>();
 
     private Astre current;
+
+    private bool tradeDone = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,30 +51,35 @@ public class resourcesManager : MonoBehaviour
     public void updateAstreCourant() {
         current = player.Astre_actuel;
         resetLedColor(current);
+        tradeDone = false;
         
     }
 
-    public void resetLedColor(Astre a) {
-        comestible_bar.led.color = defaultLedColor;
-        argent_bar.led.color = defaultLedColor;
-        degats_bar.led.color = defaultLedColor;
-        energie_bar.led.color = defaultLedColor;
+    public bool isTradeDone() {
+        return tradeDone;
+    } 
 
+    public void resetLedColor(Astre a) {
+        comestible_bar.led.transform.Find("bar").gameObject.SetActive(false);
+        argent_bar.led.transform.Find("bar").gameObject.SetActive(false);
+        degats_bar.led.transform.Find("bar").gameObject.SetActive(false);
+        energie_bar.led.transform.Find("bar").gameObject.SetActive(false);
+        Debug.Log(a.type);
         switch(a.type) {
-            case "Plan�te tellurique":
+            case "Planete tellurique":
                 comestible_bar.led.color = downColor;
                 argent_bar.led.color = upColor;
                 break;
-            case "Plan�te gazeuse":
+            case "Planete gazeuse":
                 energie_bar.led.color = downColor;
                 comestible_bar.led.color = upColor;
                 break;
             case "Satellite":
-            case "Com�te":
+            case "Comete":
                 argent_bar.led.color = downColor;
                 degats_bar.led.color = upColor;
                 break;
-            case "�toile":
+            case "Etoile":
                 degats_bar.led.color = downColor;
                 energie_bar.led.color = upColor;
                 break;
@@ -85,32 +93,48 @@ public class resourcesManager : MonoBehaviour
         comestible_bar.updateBar(-comestiblePerte);
         degats_bar.updateBar(-Random.Range(0f ,degatsPerte));
         argent_bar.updateBar(-argentPerte);
+
+        comestible_bar.led.color = defaultLedColor;
+        argent_bar.led.color = defaultLedColor;
+        degats_bar.led.color = defaultLedColor;
+        energie_bar.led.color = defaultLedColor;
     }
 
     public void trade() {
         switch(current.type) {
-            case "Plan�te tellurique":
+            case "Planete tellurique":
                 argent_bar.updateBar(0.1f);
                 comestible_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { argent_bar, comestible_bar });
                 break;
-            case "Plan�te gazeuse":
+            case "Planete gazeuse":
                 comestible_bar.updateBar(0.1f);
                 energie_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { comestible_bar, energie_bar });
                 break;
             case "Satellite":
-            case "Com�te":
+            case "Comete":
                 degats_bar.updateBar(0.1f);
                 argent_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { degats_bar, argent_bar });
                 break;
-            case "�toile":
+            case "Etoile":
                 energie_bar.updateBar(0.1f);
                 degats_bar.updateBar(-0.1f);
                 checkStatus(new List<ResourceBar>() { energie_bar, degats_bar });
                 break;
         }
+
+
+        comestible_bar.led.transform.Find("bar").gameObject.SetActive(true);
+        argent_bar.led.transform.Find("bar").gameObject.SetActive(true);
+        degats_bar.led.transform.Find("bar").gameObject.SetActive(true);
+        energie_bar.led.transform.Find("bar").gameObject.SetActive(true);
+        comestible_bar.led.color = defaultLedColor;
+        argent_bar.led.color = defaultLedColor;
+        degats_bar.led.color = defaultLedColor;
+        energie_bar.led.color = defaultLedColor;
+        tradeDone = true;
     }
 
     private void checkStatus(List<ResourceBar> resourcesToCheck)

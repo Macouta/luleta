@@ -37,6 +37,7 @@ public class InteractionManager : MonoBehaviour
     public float invadeLeverAnimTime = 1f;
     [BoxGroup("Invade")]
     public invadeManager invadeManager;
+    public resourcesManager rm;
 
     [BoxGroup("Audio")]
     public AudioManager audioManager;
@@ -131,7 +132,7 @@ public class InteractionManager : MonoBehaviour
     }
 
     void onTradeButtonClicked(Transform t) {
-        if(player.Astre_actuel) {
+        if(player.Astre_actuel && !rm.isTradeDone()) {
             Debug.Log("TRADE");
             onTrade.Invoke();
             t.DOLocalMoveZ(t.localPosition.z - 0.03f, 0.4f).SetLoops(2, LoopType.Yoyo);
