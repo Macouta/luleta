@@ -121,6 +121,7 @@ public class map_joueur : MonoBehaviour
         //arrivee
         astre_destination.Arriver();
         astre_actuel = astre_destination;
+        astre_actuel.Deselectionner();
         enHyperEspace = false;
         yield return null;
     }

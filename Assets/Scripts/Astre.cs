@@ -13,11 +13,11 @@ public class Astre : MonoBehaviour
     public int periode_rotation, periode_revolution, diametre, population, defense;
     private Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>()
     {   // type, rotation_max, revolution_max, diametre_max, population_max
-        {"Planete tellurique", new(){1500, 1500000, 50000, 1000000000}},
-        {"Planete gazeuse",    new(){1500, 1500000, 50000, 1000000000}},
-        {"Satellite",          new(){300, 300000, 10000, 10000}},
-        {"Comete",             new(){300, 300000, 1000, 2500}},
-        {"Etoile",             new(){300000, 0, 100000, 0}},
+        {"Planete tellurique", new(){2000, 1500000, 50000, 1000000000}},
+        {"Planete gazeuse",    new(){1000, 1500000, 50000, 1000000000}},
+        {"Satellite",          new(){200, 300000, 10000, 10000}},
+        {"Comete",             new(){100, 300000, 1000, 2500}},
+        {"Etoile",             new(){100000, 100000, 100000, 0}},
     };
     // relation
     public bool inaccessible = false;
@@ -47,12 +47,12 @@ public class Astre : MonoBehaviour
         //Donnes
         nom = AINamesGenerator.Utils.GetRandomName();
         InitType(1f, 2f, 2f, 2f, 1f); //tellurique, gazeuse, satellite, comete, etoile
-        periode_rotation = Random.Range(6, astre_data[type][0]); //h
+        periode_rotation = Random.Range(25, astre_data[type][0]); //h
         periode_revolution = Random.Range(3000, astre_data[type][1]); //h
         diametre = Random.Range(500, astre_data[type][2]); //km
         population = Random.Range(0, astre_data[type][3]); //nb d'habitants ou d'ennemis
         defense = (int)(Mathf.Clamp01((Random.Range(1f, 5f) * (float)population / 1000000000f)) * 100f);
-        vitesse_rot = 50f * 360f / periode_rotation;
+        vitesse_rot = (360f / (float)periode_rotation) * 30f + 5f;
 
         //Mat variables
         scale = Random.Range(0f, 1f);
@@ -148,6 +148,19 @@ public class Astre : MonoBehaviour
         return HarmonicColors;
     }
 
+    private float ColorCompare(Color colA, Color colB)
+    {
+        Vector3 vColA = new Vector3(colA.r, colA.g, colA.b);
+        Vector3 vColB = new Vector3(colB.r, colB.g, colB.b);
+        return Vector3.Distance(vColA, vColB);
+    }
+    private Color ColorSaturate(Color col)
+    {
+        float h, s, v;
+        Color.RGBToHSV(col, out h, out s, out v);
+        return Color.HSVToRGB(h, Mathf.Clamp(s, 0.5f, 1f), Mathf.Clamp(v, 0f, 0.8f));
+    }
+
     //TODO Am�liorer l'harmonie des couleurs, �viter certaines ? (violet)
 
     public void Selectionner()
@@ -168,7 +181,7 @@ public class Astre : MonoBehaviour
         if (!decouverte)
         {
             decouverte = true;
-            col_defaut = col_A;
+            col_defaut = ColorSaturate(col_A);
             astre_manager.DecouvrirAstre();
         }
         astre_manager.DefinirAstreActuel(id);
