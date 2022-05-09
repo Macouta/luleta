@@ -134,6 +134,7 @@ public class resourcesManager : MonoBehaviour
         degats_bar.led.rectTransform.localScale = new Vector3(1f, 1f, 1f);
         energie_bar.led.rectTransform.localScale = new Vector3(1f, 1f, 1f);
         checkStatus(new List<ResourceBar>() { energie_bar, comestible_bar, degats_bar, argent_bar });
+        
     }
 
     public void trade() {
