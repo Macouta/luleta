@@ -151,9 +151,6 @@ public class InteractionManager : MonoBehaviour
         }
     }
 
-    public void onInvadeEnd() {
-    }
-
     void onPowerButtonClicked(Transform t){
         if (!poweredOn){ // si �teint
             poweredOn = true;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using MoreMountains.Tools;
+using Sirenix.OdinInspector;
 
 public enum Status
 {
@@ -12,15 +13,37 @@ public enum Status
 public class ResourceBar : MonoBehaviour
 {
 
+    [BoxGroup("UI")]
     public MMProgressBar bar;
+    [BoxGroup("UI")]
     public Image icon;
+    [BoxGroup("UI")]
     public Sprite iconSprite;
+    [BoxGroup("UI")]
     public Image led;
-    public ResourceType type;
-    public Status status;
 
+    [Space]
+
+    [BoxGroup("Resource")]
+    public ResourceType type;
+
+    [BoxGroup("Resource")]
+    [MinMaxSlider(0, 100, true)]
+    public Vector2Int minMaxWin = new Vector2Int(0, 100);
+
+    [BoxGroup("Resource")]
+    [MinMaxSlider(0, 100, true)]
+    public Vector2Int minMaxLoose = new Vector2Int(0, 100);
+
+    [BoxGroup("Resource")]
     [Range(0,1)]
     public float total;
+
+    private float nextValue;
+
+    [BoxGroup("Resource")]
+    public Status status;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +60,16 @@ public class ResourceBar : MonoBehaviour
         total = Mathf.Clamp(total, 0, 1);
         bar.UpdateBar01(total);
         SetStatus();
+    }
+
+    public float setNextValue(float sign) {
+        nextValue = (float)(sign > 0 ? Random.Range(minMaxWin.x, minMaxWin.y) : -Random.Range(minMaxLoose.x, minMaxLoose.y))/100f;
+        return nextValue;
+    }
+
+    public void updateBarRng() {
+        Debug.Log(type.ToString() + " " + nextValue);
+        updateBar(nextValue);
     }
 
     private void SetStatus()

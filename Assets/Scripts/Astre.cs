@@ -11,7 +11,7 @@ public class Astre : MonoBehaviour
     public int id;
     public string nom, type;
     public int periode_rotation, periode_revolution, diametre, population, defense;
-    private Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>()
+    public Dictionary<string, List<int>> astre_data = new Dictionary<string, List<int>>()
     {   // type, rotation_max, revolution_max, diametre_max, population_max
         {"Planete tellurique", new(){2000, 1500000, 50000, 1000000000}},
         {"Planete gazeuse",    new(){1000, 1500000, 50000, 1000000000}},

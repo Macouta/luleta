@@ -42,7 +42,7 @@ public class invadeManager : MonoBehaviour
     private ResourceType currentReward;
     private float currentRewardValue;
 
-    private bool invadeInProgress = false;
+    private bool invadeInProgress = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +67,6 @@ public class invadeManager : MonoBehaviour
     private void setReward() {
         currentReward = (ResourceType)Random.Range(0,3);
 
-        
         reward_icon.color = Color.white;
         switch(currentReward) {
             case ResourceType.Argent:
@@ -88,7 +87,9 @@ public class invadeManager : MonoBehaviour
     }
 
     private float calculateReward() {
-        float reward = 0.1f;
+
+        float diametre_ratio = current.diametre / current.astre_data[current.type][2] * 100f;
+        float reward = (float)Random.Range(1, 4) / 10f;
         return reward;
     }
 
@@ -135,6 +136,7 @@ public class invadeManager : MonoBehaviour
     }
 
     private void onInvadeEnd() {
+        Debug.Log("INVADE END");
         attackBar.SetActive(true);
         reward_icon.sprite = null;
         reward_icon.color = Color.black;
@@ -145,16 +147,18 @@ public class invadeManager : MonoBehaviour
         Debug.Log(succes + " " + defense);
         if( succes > current.defense) {
             invadeEnd.Invoke(currentReward, currentRewardValue);
+            StartCoroutine(lightDifficultyEndAnim(0.1f, 1f));
+
         } else {
             invadeFailed.Invoke();
+            StartCoroutine(lightDifficultyEndAnim(0.9f, 1f));
+
         }
-        StartCoroutine(lightDifficultyEndAnim(0.9f, 1f));
     }
 
     IEnumerator waitInvade() {
         // yield return new WaitForSeconds(invadeTime);
         // invadeInProgress = false;
-        Debug.Log("INVADE END");
         for(int i = blocInvade.Length - 1; i >= 0; i--) {
             yield return new WaitForSeconds(invadeTime/5f);
             blocInvade[i].color = new Color(0.1490196f, 0.1490196f, 0.1490196f, 1f );

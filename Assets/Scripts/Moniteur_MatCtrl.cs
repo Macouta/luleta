@@ -60,8 +60,8 @@ public class Moniteur_MatCtrl : MonoBehaviour
     }
     private IEnumerator Glitchage(float duree)
     {
-        float defaut_vitesse = ren.material.GetFloat("_DistortionVitesse");
-        float defaut_mult = ren.material.GetFloat("_DistortionMult");
+        // float defaut_vitesse = ren.material.GetFloat("_DistortionVitesse");
+        // float defaut_vitesse = ren.material.GetFloat("_DistortionVitesse");
         while (duree > 0f)
         {
             duree -= Time.deltaTime;
@@ -69,8 +69,8 @@ public class Moniteur_MatCtrl : MonoBehaviour
             ren.material.SetFloat("_DistortionMult", Random.Range(0f, 10f));
             yield return null;
         }
-        ren.material.SetFloat("_DistortionVitesse", defaut_vitesse);
-        ren.material.SetFloat("_DistortionMult", defaut_mult);
+        ren.material.SetFloat("_DistortionVitesse", 1f);
+        ren.material.SetFloat("_DistortionMult", 0f);
     }
 
 }

@@ -30,14 +30,14 @@ public class map_joueur : MonoBehaviour
         }
         // Controles
         //TODO controles pour test seulement
-        if (Input.GetKey(KeyCode.Q))
-            Tourner(1f);
-        if (Input.GetKey(KeyCode.D))
-            Tourner(-1f);
-        if (Input.GetKey(KeyCode.S))
-            AborderAstreActuel();
-        if (Input.GetKeyDown(KeyCode.Z))
-            SauterHyperEspace(1f);
+        // if (Input.GetKey(KeyCode.Q))
+        //     Tourner(1f);
+        // if (Input.GetKey(KeyCode.D))
+        //     Tourner(-1f);
+        // if (Input.GetKey(KeyCode.S))
+        //     AborderAstreActuel();
+        // if (Input.GetKeyDown(KeyCode.Z))
+        //     SauterHyperEspace(1f);
 
         if (!enHyperEspace)
         {
