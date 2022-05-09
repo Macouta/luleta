@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using System.Linq;
 using TMPro;
 
@@ -8,6 +9,9 @@ public class Astre_manager : MonoBehaviour
 {
     public Astre_affichage astre_affichage;
     public Astre_description astre_description;
+
+    public UnityEvent onWin;
+
     private List<Astre> liste_astres = new List<Astre>();
     private int astre_actuel = 0;
     private int astres_decouverts = 0;
@@ -36,8 +40,7 @@ public class Astre_manager : MonoBehaviour
         astres_decouverts += 1;
         if (astres_decouverts >= liste_astres.Count)
         {
-            //TODO succes fin du jeu
-            print("SUCCESS");
+            onWin.Invoke();
         }
     }
 

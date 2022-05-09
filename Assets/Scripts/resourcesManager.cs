@@ -133,6 +133,7 @@ public class resourcesManager : MonoBehaviour
         argent_bar.led.rectTransform.localScale = new Vector3(1f, 1f, 1f);
         degats_bar.led.rectTransform.localScale = new Vector3(1f, 1f, 1f);
         energie_bar.led.rectTransform.localScale = new Vector3(1f, 1f, 1f);
+        checkStatus(new List<ResourceBar>() { energie_bar, comestible_bar, degats_bar, argent_bar });
     }
 
     public void trade() {
@@ -176,7 +177,8 @@ public class resourcesManager : MonoBehaviour
     {
         // get lowest status 
         Status lowestStatus = Status.High;
-        for(int i = 0; i < resourcesToCheck.Count; i++){
+        for (int i = 0; i < resourcesToCheck.Count; i++)
+        {
             if (resourcesToCheck[i].status < lowestStatus)
                 lowestStatus = resourcesToCheck[i].status;
         }
