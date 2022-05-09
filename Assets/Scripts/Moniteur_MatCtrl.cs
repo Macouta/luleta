@@ -5,6 +5,7 @@ using UnityEngine;
 public class Moniteur_MatCtrl : MonoBehaviour
 {
     private float speed = 1f;
+    private bool end = false;
     public Renderer ren;
     private IEnumerator coroutine;
 
@@ -21,10 +22,14 @@ public class Moniteur_MatCtrl : MonoBehaviour
     //Fonctions publiques
     public void Allumer()
     {
-        if(coroutine != null)
-            StopCoroutine(coroutine);
-        coroutine = Allumage();
-        StartCoroutine(coroutine);
+        if (!end)
+        {
+            if (coroutine != null)
+                StopCoroutine(coroutine);
+            coroutine = Allumage();
+            StartCoroutine(coroutine);
+        }
+
     }
     public void Eteindre()
     {
@@ -73,4 +78,7 @@ public class Moniteur_MatCtrl : MonoBehaviour
         ren.material.SetFloat("_DistortionMult", 0f);
     }
 
+    public void onGameOver() {
+        end = true;
+    }
 }
