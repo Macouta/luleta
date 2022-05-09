@@ -98,6 +98,8 @@ public class resourcesManager : MonoBehaviour
         argent_bar.led.color = defaultLedColor;
         degats_bar.led.color = defaultLedColor;
         energie_bar.led.color = defaultLedColor;
+
+        checkStatus(new List<ResourceBar>() { energie_bar, comestible_bar, degats_bar, argent_bar });
     }
 
     public void trade() {
@@ -141,7 +143,8 @@ public class resourcesManager : MonoBehaviour
     {
         // get lowest status 
         Status lowestStatus = Status.High;
-        for(int i = 0; i < resourcesToCheck.Count; i++){
+        for (int i = 0; i < resourcesToCheck.Count; i++)
+        {
             if (resourcesToCheck[i].status < lowestStatus)
                 lowestStatus = resourcesToCheck[i].status;
         }
