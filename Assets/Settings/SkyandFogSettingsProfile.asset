@@ -39,16 +39,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   quality:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   focusMode:
     m_OverrideState: 1
     m_Value: 2
   focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 0.1
   focusDistanceMode:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   nearFocusStart:
     m_OverrideState: 1
@@ -63,25 +63,25 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: 10
   m_NearSampleCount:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 5
   m_NearMaxBlur:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 4
   m_FarSampleCount:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 7
   m_FarMaxBlur:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 8
   m_Resolution:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 2
   m_HighQualityFiltering:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 1
   m_PhysicallyBased:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
 --- !u!114 &-5712180613890116912
 MonoBehaviour:
@@ -104,7 +104,7 @@ MonoBehaviour:
     m_Value: {x: 1, y: 0.9316476, z: 0.8960266, w: 0}
   gain:
     m_OverrideState: 0
-    m_Value: {x: 0.9784881, y: 0.9838661, z: 1, w: 0.06863419}
+    m_Value: {x: 0.9784881, y: 0.9838661, z: 1, w: 0.0000000012183063}
 --- !u!114 &-4890543203731612454
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -429,11 +429,11 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 1
   fixedExposure:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.9289901
   compensation:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 0.42
   limitMin:
     m_OverrideState: 1
     m_Value: 2
