@@ -14,7 +14,8 @@ public class AudioManager : MonoBehaviour
     //PUBLIC
     public void Play_alarm()
     {
-        sourceAlarm.Play();
+        if (!sourceAlarm.isPlaying)
+            sourceAlarm.Play();
     }
     public void Stop_alarm()
     {
@@ -35,8 +36,8 @@ public class AudioManager : MonoBehaviour
     }
     public void Play_gameOver()
     {
-        sourceInteraction.clip = gameover;
-        sourceInteraction.Play();
+        sourceAlarm.clip = gameover;
+        sourceAlarm.Play();
     }
     public void Play_invade()
     {
